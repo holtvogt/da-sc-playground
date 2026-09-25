@@ -1,0 +1,806 @@
+/* stylelint-disable no-descending-specificity -- Homepage styles are grouped by component. */
+body.luxury-home {
+  --color-gold: #a32e25;
+  --color-gold-light: #82231d;
+  --color-text: #20211f;
+  --color-text-muted: #555751;
+  --color-border: #d9d6cd;
+  --background-color: #f8f7f3;
+  --light-color: #f0eee8;
+  --body-font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  --nav-height: 78px;
+
+  background: #f8f7f3;
+  color: #20211f;
+}
+
+.luxury-home main {
+  max-width: none;
+  padding: 0;
+}
+
+.luxury-home header .nav-wrapper {
+  position: relative;
+  z-index: 10;
+  border-bottom: 1px solid #e5e2da;
+  background: #f8f7f3;
+}
+
+.luxury-home header nav {
+  max-width: 1600px;
+  color: #20211f;
+  font-family: var(--font-body);
+}
+
+.luxury-home header .nav-brand {
+  flex-basis: auto;
+  font-family: var(--font-body);
+  font-size: 0.91rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+}
+
+.luxury-home header .nav-brand a {
+  color: #20211f;
+}
+
+.luxury-home header .nav-sections {
+  flex: 0 1 auto;
+}
+
+.luxury-home header .nav-sections ul {
+  font-size: 0.79rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.luxury-home header .nav-sections a:hover,
+.luxury-home header .nav-sections a:focus-visible {
+  color: #a32e25;
+}
+
+.luxury-home header .nav-tools {
+  display: none;
+}
+
+.luxury-home header nav .nav-hamburger button {
+  background: transparent;
+  color: #20211f;
+}
+
+.luxury-home header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+  background: #f0eee8;
+  box-shadow: 0 16px 30px #20211f18;
+}
+
+.luxury-home header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
+  border-bottom-color: #f0eee8;
+}
+
+.luxury-home .hero-container {
+  background: #f8f7f3;
+}
+
+.luxury-home .hero-container .hero-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.luxury-home .hero {
+  padding: 0;
+}
+
+.luxury-home .hero > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 0 clamp(48px, 6vw, 112px);
+  align-items: center;
+  max-width: 1600px;
+  min-height: 0;
+  margin: auto;
+  padding: clamp(42px, 5vw, 78px) clamp(24px, 5vw, 96px) clamp(55px, 6vw, 90px);
+}
+
+.luxury-home .hero > div > div:first-child {
+  padding: 18px 0 80px;
+}
+
+.luxury-home .luxury-eyebrow,
+.luxury-home .luxury-section-label,
+.luxury-home .cards .luxury-card-label {
+  color: #a32e25;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.luxury-home .luxury-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.luxury-home .luxury-eyebrow::before {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 2px;
+  background: #a32e25;
+}
+
+.luxury-home .hero h1 {
+  max-width: 780px;
+  margin: 0 0 34px;
+  color: #20211f;
+  font-family: var(--font-heading);
+  font-size: clamp(4.5rem, 8vw, 8.7rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.luxury-home .luxury-heading-top,
+.luxury-home .luxury-heading-bottom {
+  display: block;
+}
+
+.luxury-home .luxury-heading-bottom {
+  color: #a32e25;
+  font-style: italic;
+}
+
+.luxury-home .hero .luxury-lead {
+  max-width: 540px;
+  margin-bottom: 36px;
+  color: #555751;
+  font-family: var(--font-body);
+  font-size: clamp(1.04rem, 1.4vw, 1.22rem);
+  line-height: 1.8;
+}
+
+.luxury-home .luxury-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 32px;
+  margin: 0;
+}
+
+.luxury-home .hero .luxury-actions a:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 23px;
+  min-height: 58px;
+  margin: 0;
+  padding: 15px 23px;
+  border-radius: 0;
+  background: #a32e25;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.luxury-home .hero .luxury-actions a:first-child::after {
+  content: '↗';
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.luxury-home .hero .luxury-actions a:first-child:hover {
+  background: #7f231c;
+  color: #fff;
+}
+
+.luxury-home .hero .luxury-actions .luxury-text-link {
+  margin: 0;
+  padding: 0 0 5px;
+  border-bottom: 1px solid #a32e25;
+  border-radius: 0;
+  background: transparent;
+  color: #20211f;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.luxury-home .hero .luxury-actions .luxury-text-link:hover {
+  background: transparent;
+  color: #a32e25;
+}
+
+.luxury-home .hero > div > .luxury-hero-image {
+  display: block;
+  position: relative;
+  align-self: stretch;
+  min-height: 620px;
+}
+
+.luxury-home .luxury-hero-image::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: -20px;
+  right: -20px;
+  width: 38%;
+  height: 55%;
+  background: #a32e25;
+}
+
+.luxury-home .luxury-hero-image .luxury-photo {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #222b36;
+}
+
+.luxury-home .luxury-hero-image .luxury-photo::after {
+  content: '';
+  position: absolute;
+  inset: 45% 0 0;
+  pointer-events: none;
+  background: linear-gradient(transparent, #10120f8c);
+}
+
+.luxury-home .hero > div > .luxury-hero-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  border-radius: 0;
+  object-fit: cover;
+  object-position: center 41%;
+  opacity: 1;
+}
+
+.luxury-home .luxury-hero-image figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 22px;
+  bottom: 18px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.63rem;
+  letter-spacing: 0.05em;
+}
+
+.luxury-home .luxury-photo figcaption a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.luxury-home .hero .luxury-photo figcaption a,
+.luxury-home .hero .luxury-photo figcaption a:hover {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+}
+
+.luxury-home .luxury-image-index {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  padding: 9px 13px;
+  background: #f8f7f3;
+  color: #20211f;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.luxury-home .cards-container {
+  padding: 110px clamp(24px, 5vw, 96px) 120px;
+  background: #111b25;
+}
+
+.luxury-home .cards-container > div {
+  max-width: 1408px;
+  margin: 0 auto;
+}
+
+.luxury-home .cards-container .default-content-wrapper {
+  margin-bottom: 52px;
+}
+
+.luxury-home .luxury-section-label {
+  margin-bottom: 17px;
+}
+
+.luxury-home .cards-container .luxury-section-label {
+  color: #e3aaa0;
+}
+
+.luxury-home .cards-container .luxury-section-title {
+  margin: 0;
+  padding: 0;
+  color: #f8f7f3;
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 4.2vw, 5.2rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.13;
+}
+
+.luxury-home .luxury-section-intro {
+  max-width: 590px;
+  margin: 20px 0 0;
+  color: #b9c1c6;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.luxury-home .cards > ul {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+.luxury-home .cards > ul > li {
+  grid-column: span 5;
+  position: relative;
+  min-width: 0;
+  min-height: 430px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #ffffff26;
+  background: #253346;
+}
+
+.luxury-home .cards > ul > li:first-child,
+.luxury-home .cards > ul > li:last-child {
+  grid-column: span 7;
+}
+
+.luxury-home .cards .cards-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: 430px;
+  margin: 0;
+  padding: 45px clamp(26px, 3vw, 46px) 70px;
+}
+
+.luxury-home .cards .luxury-card-label {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 12px;
+  color: #f0c4b9;
+}
+
+.luxury-home .cards h3 {
+  position: relative;
+  z-index: 1;
+  max-width: 13ch;
+  margin: 0 0 12px;
+  color: #f8f7f3;
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 3vw, 3.3rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.luxury-home .cards p {
+  position: relative;
+  z-index: 1;
+  max-width: 48ch;
+  margin: 0;
+  color: #e1e5e6;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.luxury-home .cards .luxury-photo {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #253346;
+}
+
+.luxury-home .cards .luxury-photo::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, #101a2459 0%, #101a2480 35%, #08131de8 84%);
+}
+
+.luxury-home .cards .luxury-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  object-fit: cover;
+  opacity: 0.84;
+  transition: transform 0.5s ease;
+}
+
+.luxury-home .cards > ul > li:nth-child(2) .luxury-photo img {
+  height: 62%;
+  object-position: center 45%;
+}
+
+.luxury-home .cards > ul > li:hover .luxury-photo img {
+  transform: scale(1.035);
+}
+
+.luxury-home .cards .luxury-photo figcaption {
+  position: absolute;
+  z-index: 2;
+  right: 20px;
+  bottom: 16px;
+  left: 20px;
+  color: #fff;
+  font-size: 0.6rem;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.luxury-home .luxury-roster {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 100px clamp(24px, 5vw, 96px) 115px;
+  background: #f8f7f3;
+}
+
+.luxury-home .luxury-roster-intro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+
+.luxury-home .luxury-roster-intro .luxury-section-label {
+  grid-column: 1 / -1;
+}
+
+.luxury-home .luxury-roster h2 {
+  grid-column: 1;
+  max-width: 470px;
+  margin: 0;
+  padding: 0;
+  color: #20211f;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 4.5vw, 5.6rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.luxury-home .luxury-roster-intro > p:not(.luxury-section-label) {
+  grid-column: 2;
+  max-width: 510px;
+  margin: 0;
+  color: #686b63;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.luxury-home .luxury-roster-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.luxury-home .luxury-roster-group {
+  padding-top: 26px;
+  border-top: 2px solid #a32e25;
+}
+
+.luxury-home .luxury-roster-group h3 {
+  margin: 0 0 15px;
+  color: #a32e25;
+  font-family: var(--font-body);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.luxury-home .luxury-roster-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.luxury-home .luxury-roster-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  min-width: 0;
+  margin: 0;
+  padding: 24px 0;
+  border-bottom: 1px solid #d9d6cd;
+  color: #20211f;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 1.9vw, 2rem);
+  line-height: 1.2;
+}
+
+.luxury-home .luxury-roster-meta {
+  color: #777a73;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.luxury-home .luxury-roster-name {
+  color: #20211f;
+}
+
+.luxury-home footer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #080e15;
+  color: #bac3c8;
+}
+
+.luxury-home footer .luxury-footer-inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 96px);
+}
+
+.luxury-home .luxury-footer-navigation a:hover,
+.luxury-home .luxury-footer-legal a:hover {
+  color: #e3aaa0;
+}
+
+.luxury-home .luxury-footer-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  padding: 75px 0 70px;
+  border-top: 2px solid #a32e25;
+}
+
+.luxury-home .luxury-footer-identity h3 {
+  margin: 0 0 28px;
+  color: #f8f7f3;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.luxury-home .luxury-footer-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 42px;
+  margin: 0;
+}
+
+.luxury-home .luxury-footer-details dt {
+  color: #e3aaa0;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.luxury-home .luxury-footer-details dd {
+  margin: 7px 0 0;
+  color: #dce2e3;
+  font-size: 0.87rem;
+}
+
+.luxury-home .luxury-footer-navigation h3 {
+  margin: 0 0 17px;
+  color: #f8f7f3;
+  font-family: var(--font-body);
+  font-size: 0.81rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.luxury-home .luxury-footer-navigation ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.luxury-home .luxury-footer-navigation li {
+  margin: 0;
+}
+
+.luxury-home .luxury-footer-navigation a,
+.luxury-home .luxury-footer-legal a {
+  color: #bac3c8;
+  font-size: 0.82rem;
+}
+
+.luxury-home .luxury-footer-legal {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 24px 0 36px;
+  border-top: 1px solid #ffffff2a;
+}
+
+.luxury-home .luxury-footer-legal p {
+  max-width: 650px;
+  margin: 0;
+  color: #89969f;
+  font-size: 0.75rem;
+}
+
+.luxury-home .luxury-footer-legal a {
+  flex: 0 0 auto;
+  color: #89969f;
+  font-size: 0.75rem;
+}
+
+.luxury-home footer a:focus-visible {
+  outline: 2px solid #e3aaa0;
+  outline-offset: 4px;
+}
+
+@media (width <= 1100px) {
+  .luxury-home .cards > ul > li,
+  .luxury-home .cards > ul > li:first-child,
+  .luxury-home .cards > ul > li:last-child {
+    grid-column: span 6;
+  }
+}
+
+@media (width <= 850px) {
+  .luxury-home .hero > div {
+    gap: 0 30px;
+  }
+
+  .luxury-home .hero h1 {
+    font-size: clamp(3.8rem, 8.5vw, 6rem);
+  }
+
+  .luxury-home .hero > div > .luxury-hero-image {
+    min-height: 520px;
+  }
+
+  .luxury-home .cards > ul > li,
+  .luxury-home .cards .cards-card-body {
+    min-height: 400px;
+  }
+
+  .luxury-home .luxury-roster-intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .luxury-home .luxury-roster-intro > p:not(.luxury-section-label) {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+}
+
+@media (width <= 680px) {
+  .luxury-home header .nav-wrapper {
+    position: relative;
+  }
+
+  .luxury-home header nav {
+    gap: 0 16px;
+    padding: 0 24px;
+  }
+
+  .luxury-home header .nav-brand {
+    font-size: 0.76rem;
+  }
+
+  .luxury-home .hero > div {
+    grid-template-columns: 1fr;
+    padding: 52px 24px 60px;
+  }
+
+  .luxury-home .hero > div > div:first-child {
+    padding: 0 0 48px;
+  }
+
+  .luxury-home .luxury-eyebrow {
+    margin-bottom: 28px;
+    font-size: 0.59rem;
+  }
+
+  .luxury-home .hero h1 {
+    margin-bottom: 26px;
+    font-size: clamp(3.7rem, 13vw, 6rem);
+  }
+
+  .luxury-home .hero .luxury-lead {
+    font-size: 1rem;
+  }
+
+  .luxury-home .hero > div > .luxury-hero-image {
+    min-height: 460px;
+  }
+
+  .luxury-home .luxury-hero-image::before {
+    right: -10px;
+    top: -10px;
+  }
+
+  .luxury-home .cards-container {
+    padding: 78px 24px 88px;
+  }
+
+  .luxury-home .cards > ul > li,
+  .luxury-home .cards > ul > li:first-child,
+  .luxury-home .cards > ul > li:last-child {
+    grid-column: 1 / -1;
+    min-height: 365px;
+  }
+
+  .luxury-home .cards .cards-card-body {
+    min-height: 365px;
+    padding: 32px 26px 68px;
+  }
+
+  .luxury-home .cards h3 {
+    font-size: clamp(2.3rem, 8vw, 3.3rem);
+  }
+
+  .luxury-home .luxury-roster {
+    padding: 78px 24px 88px;
+  }
+
+  .luxury-home .luxury-roster-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .luxury-home .luxury-footer-columns,
+  .luxury-home .luxury-footer-legal {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .luxury-home .luxury-footer-navigation ul {
+    gap: 10px;
+  }
+}
+
+@media (width <= 430px) {
+  .luxury-home .cards .cards-card-body {
+    padding: 28px 23px 62px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luxury-home .cards .luxury-photo img {
+    transition: none;
+  }
+}

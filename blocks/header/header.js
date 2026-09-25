@@ -131,13 +131,35 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
+  const brandLink = navBrand?.querySelector('a');
   if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
+    if (brandLink.classList.contains('button')) {
+      brandLink.className = '';
+      brandLink.closest('.button-container').className = '';
+    }
+    if (document.body.classList.contains('luxury-home')) {
+      brandLink.textContent = document.querySelector('main').dataset.tournamentTitle.toUpperCase();
+    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
+  if (document.body.classList.contains('luxury-home')) {
+    const list = navSections?.querySelector('.default-content-wrapper > ul');
+    if (list) {
+      list.replaceChildren();
+      [
+        ['Tournament', '#experience'],
+        ['Contenders', '#contenders'],
+      ].forEach(([label, href]) => {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = href;
+        link.textContent = label;
+        item.append(link);
+        list.append(item);
+      });
+    }
+  }
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
@@ -149,6 +171,13 @@ export default async function decorate(block) {
         }
       });
     });
+    if (document.body.classList.contains('luxury-home')) {
+      navSections.addEventListener('click', (event) => {
+        if (!isDesktop.matches && event.target.closest('a[href^="#"]')) {
+          toggleMenu(nav, navSections);
+        }
+      });
+    }
   }
 
   // hamburger for mobile
