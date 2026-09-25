@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity -- Keep EDS block styles grouped by component. */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap');
 
 :root {
@@ -9,7 +10,7 @@
   --color-border: #2a2a3e;
   --color-text: #e8e4dc;
   --color-text-muted: #94a3b8;
-  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Playfair Display', georgia, serif;
   --font-body: 'Inter', 'Helvetica Neue', sans-serif;
   --max-width: 1200px;
 }
