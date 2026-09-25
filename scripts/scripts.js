@@ -11,6 +11,7 @@ import {
   loadCSS,
   buildBlock,
 } from './aem.js';
+import decorateLuxuryHome from './luxury-home.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -164,6 +165,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
+    await decorateLuxuryHome(main);
     decorateMain(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
