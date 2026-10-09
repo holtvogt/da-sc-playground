@@ -1,4 +1,9 @@
 import { getMetadata } from '../../scripts/aem.js';
+import {
+  createSectionLinks,
+  isTournamentPage,
+  whenTournamentPage,
+} from '../../scripts/page/tournament-page.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -109,6 +114,18 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
+ * Points the brand and the section links at the rendered tournament.
+ * @param {Element} nav The nav element
+ * @param {import('../../scripts/page/tournament-page.js').TournamentPageSummary} page
+ */
+function applyTournamentNavigation(nav, { title, sections }) {
+  const brandLink = nav.querySelector('.nav-brand a');
+  if (brandLink) brandLink.textContent = title;
+  const list = nav.querySelector('.nav-sections .default-content-wrapper > ul');
+  list?.replaceChildren(...createSectionLinks(sections));
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -137,29 +154,9 @@ export default async function decorate(block) {
       brandLink.className = '';
       brandLink.closest('.button-container').className = '';
     }
-    if (document.body.classList.contains('luxury-home')) {
-      brandLink.textContent = document.querySelector('main').dataset.tournamentTitle.toUpperCase();
-    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
-  if (document.body.classList.contains('luxury-home')) {
-    const list = navSections?.querySelector('.default-content-wrapper > ul');
-    if (list) {
-      list.replaceChildren();
-      [
-        ['Tournament', '#experience'],
-        ['Contenders', '#contenders'],
-      ].forEach(([label, href]) => {
-        const item = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = href;
-        link.textContent = label;
-        item.append(link);
-        list.append(item);
-      });
-    }
-  }
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
@@ -171,13 +168,11 @@ export default async function decorate(block) {
         }
       });
     });
-    if (document.body.classList.contains('luxury-home')) {
-      navSections.addEventListener('click', (event) => {
-        if (!isDesktop.matches && event.target.closest('a[href^="#"]')) {
-          toggleMenu(nav, navSections);
-        }
-      });
-    }
+    navSections.addEventListener('click', (event) => {
+      if (!isDesktop.matches && event.target.closest('a[href^="#"]')) {
+        toggleMenu(nav, navSections);
+      }
+    });
   }
 
   // hamburger for mobile
@@ -192,9 +187,17 @@ export default async function decorate(block) {
   // prevent mobile nav behavior on window resize
   toggleMenu(nav, navSections, isDesktop.matches);
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+  document.addEventListener('click', ({ target }) => {
+    const isOpen = nav.getAttribute('aria-expanded') === 'true';
+    if (isOpen && !isDesktop.matches && !nav.contains(target)) toggleMenu(nav, navSections, false);
+  });
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  if (isTournamentPage()) {
+    whenTournamentPage().then((page) => page && applyTournamentNavigation(nav, page));
+  }
 }

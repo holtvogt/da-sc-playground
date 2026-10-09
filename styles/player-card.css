@@ -1,0 +1,175 @@
+/* stylelint-disable no-descending-specificity -- Styles are grouped by card part. */
+
+/* Player cards rendered by /scripts/ui/player-card.js. */
+@import url('./components.css');
+
+/* ── Roster ── */
+.player-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 24px;
+}
+
+/* Each card spans four roster rows (portrait, intro, details, equipment) so rows align across cards. */
+.player-card {
+  display: grid;
+  color: var(--brand-ink);
+  font-family: var(--font-body);
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  gap: 0;
+  min-width: 0;
+}
+
+/* Parts carry the card frame, so an open equipment row extends only its own card. */
+.player-card > * {
+  border-inline: 1px solid var(--brand-line);
+  background: var(--brand-surface);
+}
+
+.player-card > :first-child {
+  border-top: 1px solid var(--brand-line);
+}
+
+.player-card-details,
+.player-card > .player-card-equipment {
+  border-bottom: 1px solid var(--brand-line);
+}
+
+.player-card:has(> .player-card-equipment:not([hidden])) .player-card-details {
+  border-bottom: 0;
+}
+
+.player-card .ui-photo {
+  aspect-ratio: 4 / 3;
+}
+
+.player-card:hover .ui-photo img {
+  transform: scale(1.035);
+}
+
+.player-card-seed {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  left: 16px;
+  padding: 8px 12px;
+  background: var(--brand-accent);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.player-card-intro {
+  display: grid;
+  align-content: start;
+  padding: 28px clamp(22px, 2vw, 32px) 24px;
+}
+
+.player-card-intro .ui-eyebrow {
+  margin-bottom: 10px;
+}
+
+.player-card-name {
+  margin-bottom: 6px;
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 2.2vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.player-card-style {
+  margin-bottom: 18px;
+  color: var(--brand-ink-muted);
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+
+.player-card-bio {
+  color: var(--brand-ink-muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.player-card-details {
+  container-type: inline-size;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 22px;
+  padding: 0 clamp(22px, 2vw, 32px) 30px;
+}
+
+.player-card-stats {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 12px;
+  justify-self: stretch;
+  padding: 18px 0;
+  border-block: 1px solid var(--brand-line-soft);
+}
+
+.player-card-stats dd {
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+@container (width < 320px) {
+  .player-card-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: row;
+  }
+}
+
+.player-card-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 4px;
+  border: 0;
+  border-bottom: 1px solid var(--brand-accent);
+  background: transparent;
+  color: var(--brand-ink);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.player-card-toggle::before {
+  content: '▸' / '';
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.player-card-toggle[aria-expanded='true']::before {
+  content: '▾' / '';
+}
+
+.player-card-toggle:hover {
+  color: var(--brand-accent);
+}
+
+.player-card-equipment {
+  display: grid;
+  align-self: start;
+  gap: 12px;
+  padding: 0 clamp(22px, 2vw, 32px) 30px;
+}
+
+/* An author `display` overrides the UA rule for [hidden]. */
+.player-card-equipment[hidden] {
+  display: none;
+}
+
+.player-card-equipment dd {
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}

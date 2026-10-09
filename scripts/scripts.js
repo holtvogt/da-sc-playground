@@ -10,8 +10,18 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  getMetadata,
 } from './aem.js';
-import decorateLuxuryHome from './luxury-home.js';
+import applyShowcaseTheme from './page/theme.js';
+import { readFormField, readSchemaName } from './structured-content/form.js';
+import SCHEMAS from './structured-content/schemas.js';
+import { createElement } from './utils/dom.js';
+
+/** Blocks that render a structured content record when its own page is opened. */
+const RECORD_PAGE_BLOCKS = Object.freeze({
+  [SCHEMAS.tournament]: 'tournament',
+  [SCHEMAS.player]: 'player',
+});
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -75,6 +85,57 @@ function buildWidgetAutoBlocks(main) {
 }
 
 /**
+ * Resolves the tournament record a page renders through its `tournament` metadata.
+ * @returns {string} Site-relative record path, or an empty string
+ */
+function tournamentRecordPath() {
+  const configured = getMetadata('tournament');
+  return configured ? new URL(configured, window.location).pathname : '';
+}
+
+/**
+ * Finds the block that should render a structured content record on this page.
+ * A record's own page renders that record, which is also what the da.live canvas
+ * previews. Other pages render the tournament named in their metadata, unless
+ * they place a tournament block themselves.
+ * @param {Element} main The main element
+ * @returns {?{blockName: string, recordPath: string, isRecordPage: boolean}}
+ */
+function findRecordBlock(main) {
+  const recordPageBlock = RECORD_PAGE_BLOCKS[readSchemaName(main)];
+  if (recordPageBlock) {
+    return { blockName: recordPageBlock, recordPath: window.location.pathname, isRecordPage: true };
+  }
+  if (main.querySelector(':scope > div > .tournament')) return null;
+  const recordPath = tournamentRecordPath();
+  return recordPath ? { blockName: 'tournament', recordPath, isRecordPage: false } : null;
+}
+
+/**
+ * Replaces the page content with a block that renders a structured content record.
+ * The first heading is kept as the block's tagline. Fragments such as the nav and
+ * footer share the page's metadata and URL, so they are left untouched.
+ * @param {Element} main The container element
+ */
+function buildRecordAutoBlock(main) {
+  if (main !== document.querySelector('main')) return;
+  const record = findRecordBlock(main);
+  if (!record) return;
+  if (record.isRecordPage) {
+    applyShowcaseTheme();
+    // EDS titles a record page after its first heading, which is a field name.
+    document.title = readFormField(main, 'title') || document.title;
+  }
+
+  const recordLink = createElement('a', { text: record.recordPath, attributes: { href: record.recordPath } });
+  const tagline = main.querySelector('h1');
+  const rows = tagline ? [[recordLink], [tagline]] : [[recordLink]];
+  const block = buildBlock(record.blockName, rows);
+  if (record.isRecordPage) block.classList.add('record');
+  main.replaceChildren(createElement('div', { children: [block] }));
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -98,6 +159,7 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    buildRecordAutoBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -165,7 +227,6 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    await decorateLuxuryHome(main);
     decorateMain(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);

@@ -1,0 +1,157 @@
+/*
+ * Shared presentational components rendered by /scripts/ui/components.js.
+ * Containers add `ui-reset` so global element styles do not leak in.
+ * Rules here use one class, so block styles override them without extra weight.
+ */
+
+/* ── Reset ── */
+.ui-reset :where(h1, h2, h3, h4, p, ul, ol, li, dl, dd, figure) {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+}
+
+.ui-reset:where(ul, ol),
+.ui-reset :where(ul, ol) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ui-reset :where(a, button):focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 4px;
+}
+
+/* ── Alert ── */
+.ui-alert {
+  margin: var(--page-gutter);
+  padding: 20px 24px;
+  border-left: 3px solid var(--brand-accent);
+  background: var(--brand-surface);
+  color: var(--brand-ink);
+}
+
+/* ── Eyebrow ── */
+.ui-eyebrow {
+  color: var(--brand-accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+/* ── Photos ── */
+.ui-photo {
+  position: relative;
+  overflow: hidden;
+  background: var(--brand-night);
+}
+
+.ui-photo::after {
+  content: '';
+  position: absolute;
+  inset: 55% 0 0;
+  pointer-events: none;
+  background: linear-gradient(transparent, #10120f99);
+}
+
+.ui-photo picture {
+  display: contents;
+}
+
+.ui-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ui-photo figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 16px;
+  bottom: 12px;
+  left: 16px;
+  color: #fff;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.ui-photo figcaption a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ui-photo-empty {
+  display: grid;
+  place-items: center;
+}
+
+.ui-photo-empty::after {
+  content: none;
+}
+
+.ui-photo-empty span {
+  color: var(--brand-night-muted);
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── Facts and tags ── */
+.ui-facts dt {
+  color: var(--brand-ink-subtle);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ui-facts dd {
+  margin-top: 6px;
+  font-family: var(--font-heading);
+  line-height: 1.3;
+}
+
+.ui-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ui-tag {
+  padding: 6px 11px;
+  border: 1px solid var(--brand-line);
+  background: var(--brand-paper);
+  font-size: 0.72rem;
+  line-height: 1.3;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ui-tag:hover {
+  border-color: var(--brand-accent);
+  background: var(--brand-surface);
+  color: var(--brand-accent);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-photo img,
+  .ui-tag {
+    transition: none;
+  }
+
+  .ui-tag:hover {
+    transform: none;
+  }
+}

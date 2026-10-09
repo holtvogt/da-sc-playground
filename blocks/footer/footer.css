@@ -18,3 +18,103 @@ footer .footer p {
     padding: 40px 32px 24px;
   }
 }
+
+/* showcase theme */
+.showcase footer {
+  margin: 0;
+  padding: 0;
+  background: var(--brand-night-deep);
+  color: var(--brand-night-muted);
+}
+
+.showcase footer .footer > div {
+  max-width: var(--page-max-width);
+  padding: 0 var(--page-gutter);
+}
+
+.showcase footer a {
+  color: var(--brand-night-muted);
+}
+
+.showcase footer a:hover {
+  color: var(--brand-accent-soft);
+}
+
+.showcase footer a:focus-visible {
+  outline: 2px solid var(--brand-accent-soft);
+  outline-offset: 4px;
+}
+
+.showcase footer .footer-tournament {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px 60px;
+  padding: 72px 0;
+  border-top: 2px solid var(--brand-accent);
+}
+
+.showcase footer .footer-tournament h3 {
+  margin: 0;
+  color: var(--brand-night-ink);
+}
+
+.showcase footer .footer-tournament-identity h3 {
+  margin-bottom: 28px;
+  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.showcase footer .footer-tournament-identity dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 42px;
+  margin: 0;
+}
+
+.showcase footer .footer-tournament-identity dt {
+  color: var(--brand-accent-soft);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.showcase footer .footer-tournament-identity dd {
+  margin: 7px 0 0;
+  color: var(--brand-night-ink);
+  font-size: 0.87rem;
+}
+
+.showcase footer .footer-tournament-navigation h3 {
+  margin-bottom: 17px;
+  font-family: var(--body-font-family);
+  font-size: 0.81rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.showcase footer .footer-tournament-navigation ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.showcase footer .footer-tournament-navigation a {
+  font-size: 0.82rem;
+}
+
+.showcase footer .footer .default-content-wrapper {
+  padding: 24px 0 36px;
+  border-top: 1px solid color-mix(in srgb, var(--brand-night-ink) 16%, transparent);
+  font-size: 0.75rem;
+}
+
+.showcase footer .footer .default-content-wrapper a {
+  white-space: nowrap;
+}

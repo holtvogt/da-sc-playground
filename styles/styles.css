@@ -1,6 +1,5 @@
 /* stylelint-disable no-descending-specificity -- Keep EDS block styles grouped by component. */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap');
-@import url('./luxury-home.css');
 
 :root {
   --color-gold: #c9a84c;
@@ -14,6 +13,25 @@
   --font-heading: 'Playfair Display', georgia, serif;
   --font-body: 'Inter', 'Helvetica Neue', sans-serif;
   --max-width: 1200px;
+
+  /* Brand palette and page rhythm for structured content blocks */
+  --brand-accent: #a32e25;
+  --brand-accent-strong: #7f231c;
+  --brand-accent-soft: #e3aaa0;
+  --brand-ink: #20211f;
+  --brand-ink-muted: #555751;
+  --brand-ink-subtle: #686b64;
+  --brand-paper: #f8f7f3;
+  --brand-paper-muted: #f0eee8;
+  --brand-surface: #fff;
+  --brand-line: #d9d6cd;
+  --brand-line-soft: #e5e2da;
+  --brand-night: #111b25;
+  --brand-night-deep: #080e15;
+  --brand-night-ink: #f8f7f3;
+  --brand-night-muted: #b9c1c6;
+  --page-max-width: 1600px;
+  --page-gutter: clamp(24px, 5vw, 96px);
 }
 
 *,
@@ -37,6 +55,32 @@ main {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* ── Showcase theme, applied to structured content pages, header, and footer ── */
+body.showcase {
+  --color-gold: var(--brand-accent);
+  --color-gold-light: var(--brand-accent-strong);
+  --color-text: var(--brand-ink);
+  --color-text-muted: var(--brand-ink-muted);
+  --color-border: var(--brand-line);
+  --background-color: var(--brand-paper);
+  --light-color: var(--brand-paper-muted);
+  --body-font-family: var(--font-body);
+  --nav-height: 78px;
+
+  background: var(--brand-paper);
+  color: var(--brand-ink);
+}
+
+/* Reserves room for the nav, which is fixed below 900px */
+body.showcase > header {
+  height: var(--nav-height);
+}
+
+body.showcase main {
+  max-width: none;
+  padding: 0;
 }
 
 /* ── Typography ── */

@@ -1,0 +1,11 @@
+@import url('../../styles/player-card.css');
+
+.player {
+  padding: clamp(48px, 6vw, 96px) var(--page-gutter);
+}
+
+/* A single card keeps its natural width instead of stretching across the page. */
+.player .player-roster:has(> :only-child) {
+  max-width: 440px;
+  margin-inline: auto;
+}

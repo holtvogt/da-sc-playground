@@ -270,3 +270,137 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+/* showcase theme */
+.showcase header .nav-wrapper {
+  border-bottom: 1px solid var(--brand-line-soft);
+}
+
+.showcase header nav {
+  max-width: var(--page-max-width);
+  padding-inline: var(--page-gutter);
+  color: var(--brand-ink);
+}
+
+.showcase header .nav-brand {
+  font-size: 0.91rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.showcase header .nav-brand a,
+.showcase header nav .nav-hamburger button {
+  color: var(--brand-ink);
+}
+
+.showcase header nav .nav-hamburger button {
+  background: transparent;
+}
+
+.showcase header .nav-sections ul {
+  font-size: 0.79rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.showcase header .nav-sections a:hover,
+.showcase header .nav-sections a:focus-visible {
+  color: var(--brand-accent);
+}
+
+@media (width < 900px) {
+  .showcase header .nav-brand {
+    font-size: 0.76rem;
+  }
+
+  .showcase header nav[aria-expanded='true'] {
+    grid-template:
+      'hamburger brand' var(--nav-height)
+      'sections sections' auto / auto 1fr;
+    height: auto;
+    min-height: 0;
+    padding-bottom: 32px;
+  }
+
+  /* Dims the page below the open menu. A click on it closes the menu. */
+  .showcase header .nav-wrapper:has(> nav[aria-expanded='true'])::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    background: rgb(32 33 31 / 45%);
+  }
+
+  .showcase header nav[aria-expanded='true'] .nav-sections {
+    animation: showcase-menu-in 0.25s ease-out;
+  }
+
+  .showcase header nav .nav-sections ul {
+    margin: 0;
+    border-top: 2px solid var(--brand-accent);
+    counter-reset: nav-section;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .showcase header nav .nav-sections li {
+    border-bottom: 1px solid var(--brand-line-soft);
+    counter-increment: nav-section;
+  }
+
+  .showcase header nav .nav-sections a {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    align-items: baseline;
+    padding: 18px 0;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .showcase header nav .nav-sections a::before {
+    content: counter(nav-section, decimal-leading-zero);
+    color: var(--brand-accent);
+    font-size: 0.95rem;
+    font-style: italic;
+  }
+
+  .showcase header nav .nav-sections a::after {
+    content: '→';
+    color: var(--brand-accent);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .showcase header nav .nav-sections a:hover::after,
+  .showcase header nav .nav-sections a:focus-visible::after {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes showcase-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase header nav[aria-expanded='true'] .nav-sections {
+    animation: none;
+  }
+
+  .showcase header nav .nav-sections a::after {
+    transition: none;
+  }
+}

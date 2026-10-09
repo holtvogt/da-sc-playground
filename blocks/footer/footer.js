@@ -1,58 +1,62 @@
 import { getMetadata } from '../../scripts/aem.js';
+import { createElement } from '../../scripts/utils/dom.js';
+import {
+  createSectionLinks,
+  isTournamentPage,
+  whenTournamentPage,
+} from '../../scripts/page/tournament-page.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-function element(tag, className, text) {
-  const item = document.createElement(tag);
-  item.className = className;
-  item.textContent = text;
-  return item;
+const LABELS = Object.freeze({
+  dates: 'Dates',
+  location: 'Location',
+  explore: 'Explore',
+  navigation: 'Footer',
+});
+
+function createIdentity({ title, dates, location }) {
+  const details = [[LABELS.dates, dates], [LABELS.location, location]]
+    .filter(([, value]) => value)
+    .map(([label, value]) => createElement('div', {
+      children: [createElement('dt', { text: label }), createElement('dd', { text: value })],
+    }));
+  return createElement('div', {
+    className: 'footer-tournament-identity',
+    children: [
+      createElement('h3', { text: title }),
+      details.length > 0 && createElement('dl', { children: details }),
+    ].filter(Boolean),
+  });
 }
 
-function link(label, href) {
-  const item = element('a', '', label);
-  item.href = href;
-  return item;
+function createNavigation(sections) {
+  return createElement('nav', {
+    className: 'footer-tournament-navigation',
+    attributes: { 'aria-label': LABELS.navigation },
+    children: [
+      createElement('h3', { text: LABELS.explore }),
+      createElement('ul', { children: createSectionLinks(sections) }),
+    ],
+  });
 }
 
-function decorateConceptFooter(block) {
-  const { tournamentTitle, tournamentDates, tournamentLocation } = document.querySelector('main').dataset;
-  const footer = element('div', 'luxury-footer-inner', '');
-
-  const columns = element('div', 'luxury-footer-columns', '');
-  const identity = element('div', 'luxury-footer-identity', '');
-  const details = element('dl', 'luxury-footer-details', '');
-  [
-    ['Dates', tournamentDates],
-    ['Location', tournamentLocation],
-  ].forEach(([label, value]) => {
-    const item = element('div', '', '');
-    item.append(element('dt', '', label), element('dd', '', value));
-    details.append(item);
+/**
+ * Replaces the authored columns with the rendered tournament's identity and sections.
+ * Other authored footer content, such as legal notes, stays as authored.
+ * @param {Element} footer The decorated footer content
+ * @param {import('../../scripts/page/tournament-page.js').TournamentPageSummary} page
+ */
+function applyTournament(footer, page) {
+  const columns = createElement('div', {
+    className: 'footer-tournament',
+    children: [
+      createIdentity(page),
+      page.sections.length > 0 && createNavigation(page.sections),
+    ].filter(Boolean),
   });
-  identity.append(element('h3', '', tournamentTitle), details);
-
-  const navigation = element('nav', 'luxury-footer-navigation', '');
-  navigation.setAttribute('aria-label', 'Footer');
-  navigation.append(element('h3', '', 'Explore'));
-  const links = element('ul', '', '');
-  [
-    ['Tournament', '#experience'],
-    ['Contenders', '#contenders'],
-  ].forEach(([label, href]) => {
-    const listItem = element('li', '', '');
-    listItem.append(link(label, href));
-    links.append(listItem);
-  });
-  navigation.append(links);
-  columns.append(identity, navigation);
-
-  const legal = element('div', 'luxury-footer-legal', '');
-  legal.append(
-    element('p', '', 'A fictional table tennis concept. Not affiliated with World Table Tennis or an official tournament.'),
-    link('Image use under the Unsplash License', 'https://unsplash.com/license'),
-  );
-  footer.append(columns, legal);
-  block.replaceChildren(footer);
+  const authoredColumns = footer.querySelector('.columns-wrapper');
+  if (authoredColumns) authoredColumns.replaceWith(columns);
+  else footer.prepend(columns);
 }
 
 /**
@@ -60,11 +64,6 @@ function decorateConceptFooter(block) {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  if (document.body.classList.contains('luxury-home')) {
-    decorateConceptFooter(block);
-    return;
-  }
-
   // load footer as fragment
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
@@ -73,7 +72,11 @@ export default async function decorate(block) {
   // decorate footer DOM
   block.textContent = '';
   const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
+  while (fragment?.firstElementChild) footer.append(fragment.firstElementChild);
 
   block.append(footer);
+
+  if (isTournamentPage()) {
+    whenTournamentPage().then((page) => page && applyTournament(footer, page));
+  }
 }
