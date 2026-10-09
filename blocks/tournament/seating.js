@@ -1,7 +1,7 @@
-import { createPhoto } from '../../../scripts/ui/components.js';
-import { formatNumber, formatPrice, joinParts } from '../../../scripts/ui/format.js';
-import { createElement } from '../../../scripts/utils/dom.js';
-import LABELS from '../labels.js';
+import { createPhoto } from '../../scripts/ui/components.js';
+import { formatNumber, formatPrice, joinParts } from '../../scripts/ui/format.js';
+import { createElement } from '../../scripts/utils/dom.js';
+import LABELS from './labels.js';
 
 /**
  * Formats a seat count, such as `120 seats`.

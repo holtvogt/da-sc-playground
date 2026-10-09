@@ -1,7 +1,7 @@
 import {
   isSitePath, toImage, toNumber, toRecord, toRecords, toText, toTextList,
 } from './fields.js';
-import readStructuredContent from './parser.js';
+import readStructuredContent from './delivery.js';
 import loadPlayers from './player.js';
 import SCHEMAS from './schemas.js';
 
@@ -130,15 +130,44 @@ function normalizeTournament(record, path) {
   };
 }
 
-/**
- * Loads a tournament record and every player it references.
- * A player that fails to load is left out instead of failing the tournament.
- * @param {string} path Site-relative tournament path, e.g. `/tournaments/monte-carlo-invitational`
+async function fetchTournament(path) {
+  const record = await readStructuredContent(path, SCHEMAS.tournament);
+  return normalizeTournament(record, path);
+}
+
+/*
+ * Several blocks on a page render the same tournament, so each record loads
+ * once. A failed load is forgotten, so the next block can retry it.
  */
-export default async function loadTournament(path) {
-  if (!isSitePath(path)) throw new Error(`Invalid tournament path "${path}"`);
-  const record = await readStructuredContent(`${path}.plain.html`, SCHEMAS.tournament);
-  const tournament = normalizeTournament(record, path);
-  const players = await loadPlayers(tournament.entrants);
-  return { tournament, players };
+const loadedTournaments = new Map();
+const loadedEntrants = new Map();
+
+function loadOnce(cache, key, load) {
+  if (!cache.has(key)) {
+    const loading = load();
+    loading.catch(() => cache.delete(key));
+    cache.set(key, loading);
+  }
+  return cache.get(key);
+}
+
+/**
+ * Loads a tournament record without its players, so blocks that only show
+ * tournament facts need a single request.
+ * @param {string} path Site-relative tournament path, e.g. `/tournaments/monte-carlo-invitational`
+ * @returns {Promise<object>} The normalized tournament
+ */
+export function loadTournament(path) {
+  if (!isSitePath(path)) return Promise.reject(new Error(`Invalid tournament path "${path}"`));
+  return loadOnce(loadedTournaments, path, () => fetchTournament(path));
+}
+
+/**
+ * Loads every player a tournament references. A player that fails to load is
+ * left out instead of failing the tournament.
+ * @param {object} tournament A tournament from {@link loadTournament}
+ * @returns {Promise<object[]>} The loaded players
+ */
+export function loadEntrants(tournament) {
+  return loadOnce(loadedEntrants, tournament.path, () => loadPlayers(tournament.entrants));
 }

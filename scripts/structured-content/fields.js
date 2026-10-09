@@ -11,9 +11,7 @@ export function toText(value) {
 }
 
 export function toNumber(value) {
-  const text = toText(value);
-  const number = Number(text);
-  return text && Number.isFinite(number) ? number : null;
+  return Number.isFinite(value) ? value : null;
 }
 
 export function toRecord(value) {
@@ -51,10 +49,7 @@ export function toRecordPath(href) {
   return new URL(href, window.location).pathname.replace(DOCUMENT_EXTENSION, '');
 }
 
-/**
- * Accepts secure URLs, such as AEM Assets delivery URLs, and same-origin URLs,
- * such as media bus images that the parser resolved.
- */
+/** Accepts secure URLs, such as AEM Assets or media bus URLs, and same-origin URLs. */
 function toImageUrl(value) {
   try {
     const url = new URL(toText(value));

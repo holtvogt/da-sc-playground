@@ -310,7 +310,31 @@ header nav .nav-tools {
   color: var(--brand-accent);
 }
 
+.showcase header .nav-tools a.button {
+  min-height: 44px;
+  padding: 11px 18px;
+  gap: 16px;
+  white-space: nowrap;
+}
+
 @media (width < 900px) {
+  .showcase header nav[aria-expanded='false'] .nav-tools {
+    display: none;
+  }
+
+  .showcase header nav[aria-expanded='true'] .nav-tools {
+    align-self: start;
+    padding-top: 28px;
+    animation: showcase-menu-in 0.25s ease-out;
+  }
+
+  .showcase header nav[aria-expanded='true'] .nav-tools a.button {
+    display: flex;
+    justify-content: space-between;
+    min-height: var(--button-large-height);
+    padding: var(--button-large-padding);
+  }
+
   .showcase header .nav-brand {
     font-size: 0.76rem;
   }
@@ -318,7 +342,8 @@ header nav .nav-tools {
   .showcase header nav[aria-expanded='true'] {
     grid-template:
       'hamburger brand' var(--nav-height)
-      'sections sections' auto / auto 1fr;
+      'sections sections' auto
+      'tools tools' auto / auto 1fr;
     height: auto;
     min-height: 0;
     padding-bottom: 32px;
@@ -396,7 +421,7 @@ header nav .nav-tools {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .showcase header nav[aria-expanded='true'] .nav-sections {
+  .showcase header nav[aria-expanded='true'] :is(.nav-sections, .nav-tools) {
     animation: none;
   }
 

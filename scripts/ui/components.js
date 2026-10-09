@@ -1,6 +1,6 @@
 import { createOptimizedPicture } from '../aem.js';
 import { createElement } from '../utils/dom.js';
-import { isMediaBusUrl } from '../utils/media.js';
+import isMediaBusUrl from '../utils/media.js';
 
 /*
  * Presentational components shared by blocks. Styles live in /styles/components.css.

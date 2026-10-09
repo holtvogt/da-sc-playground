@@ -1,0 +1,156 @@
+.tournament.hero {
+  display: grid;
+  gap: 0 clamp(48px, 6vw, 112px);
+  align-items: center;
+  padding: clamp(42px, 5vw, 78px) var(--section-inline-padding) clamp(55px, 6vw, 90px);
+}
+
+.tournament.hero:has(> .tournament-hero-media) {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+}
+
+.tournament.hero .tournament-hero-copy {
+  padding: 18px 0 80px;
+}
+
+.tournament.hero .tournament-hero-eyebrow {
+  margin-bottom: 36px;
+}
+
+.tournament.hero .tournament-hero-title {
+  max-width: 780px;
+  margin-bottom: 34px;
+  font-family: var(--font-heading);
+  font-size: clamp(4.5rem, 8vw, 8.7rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.tournament.hero .tournament-hero-title em {
+  color: var(--brand-accent);
+}
+
+.tournament.hero .tournament-hero-lead {
+  max-width: 540px;
+  margin-bottom: 36px;
+  color: var(--brand-ink-muted);
+  font-size: clamp(1.04rem, 1.4vw, 1.22rem);
+  line-height: 1.8;
+}
+
+.tournament.hero .tournament-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 32px;
+}
+
+.tournament.hero .tournament-hero-media {
+  position: relative;
+  align-self: stretch;
+  min-height: 620px;
+}
+
+.tournament.hero .tournament-hero-media::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 38%;
+  height: 55%;
+  background: var(--brand-accent);
+}
+
+.tournament.hero .tournament-hero-media .ui-photo {
+  position: absolute;
+  inset: 0;
+}
+
+.tournament.hero .tournament-hero-media .ui-photo::after {
+  inset: 45% 0 0;
+}
+
+.tournament.hero .tournament-hero-media figcaption {
+  right: 22px;
+  bottom: 18px;
+  font-size: 0.63rem;
+}
+
+.tournament.hero .tournament-hero-badge {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  padding: 9px 13px;
+  background: var(--brand-paper);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (width <= 850px) {
+  .tournament.hero:has(> .tournament-hero-media) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tournament.hero .tournament-hero-copy {
+    padding: 0 0 48px;
+  }
+
+  .tournament.hero .tournament-hero-title {
+    font-size: clamp(3.8rem, 8.5vw, 6rem);
+  }
+
+  .tournament.hero .tournament-hero-media {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (width <= 680px) {
+  .tournament.hero .tournament-hero-eyebrow {
+    margin-bottom: 28px;
+  }
+
+  .tournament.hero .tournament-hero-title {
+    margin-bottom: 26px;
+    font-size: clamp(3.7rem, 13vw, 6rem);
+  }
+
+  /* Both calls to action become full-width buttons with matching metrics */
+  .tournament.hero .tournament-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .tournament.hero .tournament-hero-actions .button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .tournament.hero .tournament-hero-actions .button.secondary {
+    min-height: var(--button-large-height);
+    padding: var(--button-large-padding);
+    border: 1px solid var(--brand-accent);
+  }
+
+  .tournament.hero .tournament-hero-actions .button.secondary::after {
+    content: '↓' / '';
+    color: var(--brand-accent);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .tournament.hero .tournament-hero-media {
+    aspect-ratio: 4 / 5;
+  }
+
+  .tournament.hero .tournament-hero-media::before {
+    top: -10px;
+    right: -10px;
+  }
+}

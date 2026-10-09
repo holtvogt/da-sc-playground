@@ -1,7 +1,7 @@
 import {
   isSitePath, toImage, toNumber, toRecord, toText, toTextList,
 } from './fields.js';
-import readStructuredContent from './parser.js';
+import readStructuredContent from './delivery.js';
 import SCHEMAS from './schemas.js';
 
 /**
@@ -47,7 +47,7 @@ function normalizePlayer(record, { path, seed = null, group = '' }) {
  */
 async function loadPlayer(entry) {
   if (!isSitePath(entry.path)) throw new Error(`Invalid player path "${entry.path}"`);
-  const record = await readStructuredContent(`${entry.path}.plain.html`, SCHEMAS.player);
+  const record = await readStructuredContent(entry.path, SCHEMAS.player);
   return normalizePlayer(record, entry);
 }
 

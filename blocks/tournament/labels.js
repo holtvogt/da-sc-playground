@@ -1,11 +1,10 @@
 /*
- * Interface copy for the tournament block. Tournament content itself comes
- * from structured content. Only labels for fields and navigation live here.
+ * Interface copy for the tournament blocks. Editorial copy, such as section
+ * headings and calls to action, is authored on the page. Tournament facts come
+ * from structured content. Only field labels and fallbacks live here.
  */
 const LABELS = Object.freeze({
   loadError: 'The tournament could not be loaded. Please try again later.',
-  heroPrimaryAction: 'Explore the tournament',
-  heroSecondaryAction: 'Meet the contenders',
   edition: (year, status) => (year || status
     ? [year, status, 'edition'].filter(Boolean).join(' ') : ''),
 
@@ -16,6 +15,7 @@ const LABELS = Object.freeze({
   venue: 'Venue',
   seating: 'Seating',
 
+  dates: 'Dates',
   discipline: 'Discipline',
   format: 'Format',
   groups: 'Groups',

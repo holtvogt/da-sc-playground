@@ -1,0 +1,20 @@
+/* Containers such as the footer restyle the strip through these properties. */
+.tournament.facts {
+  --tournament-facts-label-color: var(--brand-ink-subtle);
+  --tournament-facts-value-color: inherit;
+}
+
+.tournament.facts .tournament-facts-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px clamp(32px, 4vw, 64px);
+}
+
+.tournament.facts .tournament-facts-list dt {
+  color: var(--tournament-facts-label-color);
+}
+
+.tournament.facts .tournament-facts-list dd {
+  color: var(--tournament-facts-value-color);
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+}

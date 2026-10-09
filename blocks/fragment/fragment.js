@@ -42,6 +42,21 @@ export async function loadFragment(path) {
   return null;
 }
 
+/**
+ * Loads page chrome, such as the nav or the footer. When the chrome document
+ * is the page itself, as in its da.live canvas preview, its own content moves
+ * into the chrome, so it previews in place and stays editable.
+ * @param {string} path The path to the chrome document
+ * @returns {Promise<?HTMLElement>} The root element of the chrome content
+ */
+export async function loadChromeFragment(path) {
+  if (path !== window.location.pathname) return loadFragment(path);
+  const main = document.createElement('main');
+  main.append(...document.querySelector('main').children);
+  await loadSections(main);
+  return main;
+}
+
 export default async function decorate(block) {
   const link = block.querySelector('a');
   const path = link ? link.getAttribute('href') : block.textContent.trim();

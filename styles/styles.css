@@ -32,6 +32,12 @@
   --brand-night-muted: #b9c1c6;
   --page-max-width: 1600px;
   --page-gutter: clamp(24px, 5vw, 96px);
+
+  /* Aligns full-bleed sections with the page grid. Resolves against the element that uses it. */
+  --section-inline-padding: max(
+    var(--page-gutter),
+    calc((100% - var(--page-max-width)) / 2 + var(--page-gutter))
+  );
 }
 
 *,
@@ -68,6 +74,8 @@ body.showcase {
   --light-color: var(--brand-paper-muted);
   --body-font-family: var(--font-body);
   --nav-height: 78px;
+  --button-large-height: 58px;
+  --button-large-padding: 15px 23px;
 
   background: var(--brand-paper);
   color: var(--brand-ink);
@@ -81,6 +89,89 @@ body.showcase > header {
 body.showcase main {
   max-width: none;
   padding: 0;
+}
+
+/* Section Metadata styles. Authors pick them per section. */
+.showcase main > .section.dark {
+  background: var(--brand-night);
+  color: var(--brand-night-ink);
+}
+
+.showcase main > .section.muted {
+  border-block: 1px solid var(--brand-line-soft);
+  background: var(--brand-paper-muted);
+}
+
+/* Default content that no block took over keeps to the page grid. */
+.showcase main > .section > .default-content-wrapper {
+  padding: 48px var(--section-inline-padding);
+}
+
+/* Authored links in bold or italics become buttons. */
+.showcase .button-wrapper {
+  margin: 0;
+}
+
+.showcase a.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 23px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.showcase a.button:is(.primary, .accent) {
+  min-height: var(--button-large-height);
+  padding: var(--button-large-padding);
+  background: var(--brand-accent);
+  color: #fff;
+}
+
+.showcase a.button:is(.primary, .accent)::after {
+  content: '↗' / '';
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.showcase a.button:is(.primary, .accent):hover {
+  background: var(--brand-accent-strong);
+  color: #fff;
+}
+
+.showcase a.button.secondary {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--brand-accent);
+  color: var(--brand-ink);
+}
+
+.showcase a.button.secondary:hover {
+  color: var(--brand-accent);
+}
+
+.showcase .dark a.button.secondary {
+  color: var(--brand-night-ink);
+}
+
+.showcase .dark a.button.secondary:hover {
+  color: var(--brand-accent-soft);
+}
+
+.showcase a.button:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase a.button {
+    transition: none;
+  }
 }
 
 /* ── Typography ── */
@@ -138,60 +229,6 @@ a:hover {
 
 strong {
   color: var(--color-text);
-}
-
-/* ── Hero block ── */
-.hero > div {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
-  min-height: 88vh;
-  padding: 5rem 0;
-}
-
-.hero > div > div:first-child {
-  z-index: 1;
-}
-
-.hero > div > div:last-child img {
-  width: 100%;
-  height: 100%;
-  max-height: 600px;
-  object-fit: cover;
-  border-radius: 4px;
-  opacity: 0.85;
-}
-
-.hero h1 {
-  color: #fff;
-}
-
-.hero p {
-  color: #d0c9be;
-  font-size: 1.15rem;
-}
-
-.hero a {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.85rem 2.25rem;
-  border-radius: 2px;
-  background: var(--color-gold);
-  color: var(--color-dark);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition:
-    background 0.2s,
-    color 0.2s;
-}
-
-.hero a:hover {
-  background: var(--color-gold-light);
-  color: var(--color-dark);
 }
 
 /* ── Cards block ── */
@@ -279,15 +316,3 @@ footer p {
   font-size: 0.8rem;
 }
 
-/* ── Responsive ── */
-@media (width <= 768px) {
-  .hero > div {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding: 3rem 0;
-  }
-
-  .hero > div > div:last-child {
-    display: none;
-  }
-}

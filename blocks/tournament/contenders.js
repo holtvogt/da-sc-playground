@@ -1,8 +1,9 @@
-import { createFacts } from '../../../scripts/ui/components.js';
-import renderPlayerRoster from '../../../scripts/ui/player-card.js';
-import { createElement } from '../../../scripts/utils/dom.js';
-import LABELS from '../labels.js';
-import { createSection, highlightLabel, SECTION_KEYS } from './section.js';
+import { createFacts } from '../../scripts/ui/components.js';
+import renderPlayerRoster from '../../scripts/ui/player-card.js';
+import { createSectionHeading, renderTournamentSection } from './block.js';
+import { HIGHLIGHT_KEYS, highlightLabel } from './highlight-keys.js';
+import LABELS from './labels.js';
+import { createElement } from '../../scripts/utils/dom.js';
 
 function bySeedThenName(first, second) {
   const seedOrder = (first.seed ?? Infinity) - (second.seed ?? Infinity);
@@ -69,20 +70,19 @@ function createGroup({ name, players }, index) {
 }
 
 /**
- * Renders every entrant, grouped and ordered by seed.
- * @returns {?import('./section.js').RenderedSection}
+ * Renders every entrant of a tournament, grouped and ordered by seed.
+ * @param {Element} block The tournament block, contenders variant
  */
-export default function renderContenders(tournament, players) {
-  if (!players.length) return null;
-  const groups = groupPlayers(players);
-  const { section, heading, rendered } = createSection({
-    key: SECTION_KEYS.players,
-    navLabel: LABELS.contenders,
-    eyebrow: highlightLabel(tournament, SECTION_KEYS.players) || LABELS.contenders,
-    title: LABELS.contendersTitle,
-  });
-  const facts = createCompetitionFacts(tournament, groups);
-  if (facts) heading.append(facts);
-  section.append(...groups.map(createGroup));
-  return rendered;
+export default function decorate(block) {
+  return renderTournamentSection(block, ({ tournament, players }, authored) => {
+    if (!players.length) return null;
+    const groups = groupPlayers(players);
+    const heading = createSectionHeading(authored, {
+      eyebrow: highlightLabel(tournament, HIGHLIGHT_KEYS.players) || LABELS.contenders,
+      title: LABELS.contendersTitle,
+    });
+    const facts = createCompetitionFacts(tournament, groups);
+    if (facts) heading.append(facts);
+    return [heading, ...groups.map(createGroup)];
+  }, { withPlayers: true });
 }

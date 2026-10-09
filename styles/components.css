@@ -42,6 +42,20 @@
   text-transform: uppercase;
 }
 
+.ui-eyebrow-ruled {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ui-eyebrow-ruled::before {
+  content: '';
+  flex: none;
+  width: 35px;
+  height: 2px;
+  background: currentcolor;
+}
+
 /* ── Photos ── */
 .ui-photo {
   position: relative;

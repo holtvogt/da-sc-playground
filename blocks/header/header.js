@@ -1,10 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
-import {
-  createSectionLinks,
-  isTournamentPage,
-  whenTournamentPage,
-} from '../../scripts/page/tournament-page.js';
-import { loadFragment } from '../fragment/fragment.js';
+import { loadChromeFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -114,18 +109,6 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
- * Points the brand and the section links at the rendered tournament.
- * @param {Element} nav The nav element
- * @param {import('../../scripts/page/tournament-page.js').TournamentPageSummary} page
- */
-function applyTournamentNavigation(nav, { title, sections }) {
-  const brandLink = nav.querySelector('.nav-brand a');
-  if (brandLink) brandLink.textContent = title;
-  const list = nav.querySelector('.nav-sections .default-content-wrapper > ul');
-  list?.replaceChildren(...createSectionLinks(sections));
-}
-
-/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -133,13 +116,13 @@ export default async function decorate(block) {
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+  const fragment = await loadChromeFragment(navPath);
 
   // decorate nav DOM
   block.textContent = '';
   const nav = document.createElement('nav');
   nav.id = 'nav';
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  while (fragment?.firstElementChild) nav.append(fragment.firstElementChild);
 
   const classes = ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
@@ -152,7 +135,7 @@ export default async function decorate(block) {
   if (brandLink) {
     if (brandLink.classList.contains('button')) {
       brandLink.className = '';
-      brandLink.closest('.button-container').className = '';
+      brandLink.closest('.button-wrapper').className = '';
     }
   }
 
@@ -168,12 +151,13 @@ export default async function decorate(block) {
         }
       });
     });
-    navSections.addEventListener('click', (event) => {
-      if (!isDesktop.matches && event.target.closest('a[href^="#"]')) {
-        toggleMenu(nav, navSections);
-      }
-    });
   }
+
+  nav.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href*="#"]');
+    const isSamePageAnchor = link?.pathname === window.location.pathname;
+    if (!isDesktop.matches && isSamePageAnchor) toggleMenu(nav, navSections, false);
+  });
 
   // hamburger for mobile
   const hamburger = document.createElement('div');
@@ -196,8 +180,4 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
-
-  if (isTournamentPage()) {
-    whenTournamentPage().then((page) => page && applyTournamentNavigation(nav, page));
-  }
 }
