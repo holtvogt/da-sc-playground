@@ -1,5 +1,5 @@
-import { getMetadata } from '../../scripts/aem.js';
 import { loadChromeFragment } from '../fragment/fragment.js';
+import { resolveChromePath } from '../../scripts/page/chrome.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -114,8 +114,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
  */
 export default async function decorate(block) {
   // load nav as fragment
-  const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
+  const navPath = resolveChromePath('nav');
   const fragment = await loadChromeFragment(navPath);
 
   // decorate nav DOM

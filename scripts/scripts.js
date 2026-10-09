@@ -11,6 +11,7 @@ import {
   loadCSS,
   buildBlock,
 } from './aem.js';
+import { removeUneditedChrome } from './page/chrome.js';
 import buildRecordBlock from './page/record-block.js';
 import applyShowcaseTheme from './page/theme.js';
 import buildTournamentRecordPage from './page/tournament-record-page.js';
@@ -236,7 +237,9 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('body > header'));
+  removeUneditedChrome(doc);
+  const header = doc.querySelector('body > header');
+  if (header) loadHeader(header);
 
   const main = doc.querySelector('main');
   await loadSections(main);
@@ -245,7 +248,8 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadFooter(doc.querySelector('body > footer'));
+  const footer = doc.querySelector('body > footer');
+  if (footer) loadFooter(footer);
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
