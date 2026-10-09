@@ -51,10 +51,17 @@ footer .footer p {
   font-size: inherit;
 }
 
-/* Authored columns: the brand with its description, then link lists */
-.showcase footer .columns-container {
-  padding: 72px 0 56px;
+/*
+ * Authors may place the columns, the tournament facts, and the legal line in
+ * one section, so each part spaces itself through its wrapper.
+ */
+.showcase footer .section:first-child {
   border-top: 2px solid var(--brand-accent);
+}
+
+/* Authored columns: the brand with its description, then link lists */
+.showcase footer .columns-wrapper {
+  padding: 72px 0 56px;
 }
 
 .showcase footer .columns > div {
@@ -109,7 +116,7 @@ footer .footer p {
 }
 
 /* Tournament facts from structured content */
-.showcase footer .tournament-container {
+.showcase footer .tournament-wrapper {
   padding: 32px 0 40px;
   border-top: 1px solid color-mix(in srgb, var(--brand-night-ink) 16%, transparent);
 }
