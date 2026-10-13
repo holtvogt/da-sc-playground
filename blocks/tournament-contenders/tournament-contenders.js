@@ -57,14 +57,13 @@ function createGroupToggle(name, playerCount) {
  * listed as they are, since there is nothing to name the toggle after.
  * Player names rank below the group heading, or below the section title.
  */
-function createGroup({ name, players }, index) {
+function createGroup({ name, players }) {
   const roster = renderPlayerRoster(players, { headingLevel: name ? 4 : 3 });
   if (!name) {
     return createElement('div', { className: 'tournament-group', children: [roster] });
   }
   return createElement('details', {
     className: 'tournament-group',
-    attributes: index === 0 ? { open: '' } : {},
     children: [createGroupToggle(name, players.length), roster],
   });
 }
