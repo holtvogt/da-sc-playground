@@ -25,7 +25,7 @@
 
 /* ── Alert ── */
 .ui-alert {
-  margin: var(--page-gutter);
+  margin-block: var(--page-gutter);
   padding: 20px 24px;
   border-left: 3px solid var(--brand-accent);
   background: var(--brand-surface);
@@ -111,9 +111,9 @@
   content: none;
 }
 
-.ui-photo-empty span {
+.ui-photo-placeholder {
   color: var(--brand-night-muted);
-  font-family: var(--font-heading);
+  font-family: var(--heading-font-family);
   font-size: 3rem;
   letter-spacing: 0.05em;
 }
@@ -127,9 +127,11 @@
   text-transform: uppercase;
 }
 
+/* Playfair defaults to old-style figures, which make numbers in a row bob up and down. */
 .ui-facts dd {
   margin-top: 6px;
-  font-family: var(--font-heading);
+  font-family: var(--heading-font-family);
+  font-variant-numeric: lining-nums tabular-nums;
   line-height: 1.3;
 }
 

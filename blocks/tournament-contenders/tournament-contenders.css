@@ -1,17 +1,18 @@
+@import url('../../styles/tournament-section.css');
 @import url('../../styles/player-card.css');
 
-.tournament.contenders .tournament-group + .tournament-group {
+.tournament-contenders .tournament-group + .tournament-group {
   margin-top: 16px;
 }
 
-.tournament.contenders .tournament-group-toggle {
+.tournament-contenders .tournament-group-toggle {
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 18px clamp(20px, 2vw, 28px);
   background: var(--brand-accent);
   color: var(--brand-paper);
-  font-family: var(--font-body);
+  font-family: var(--body-font-family);
   font-weight: 700;
   text-transform: uppercase;
   list-style: none;
@@ -19,11 +20,11 @@
   transition: background-color 0.2s ease;
 }
 
-.tournament.contenders .tournament-group-toggle::-webkit-details-marker {
+.tournament-contenders .tournament-group-toggle::-webkit-details-marker {
   display: none;
 }
 
-.tournament.contenders .tournament-group-toggle::after {
+.tournament-contenders .tournament-group-toggle::after {
   content: '';
   width: 8px;
   height: 8px;
@@ -34,20 +35,20 @@
   transition: transform 0.2s ease;
 }
 
-.tournament.contenders .tournament-group[open] > .tournament-group-toggle::after {
+.tournament-contenders .tournament-group[open] > .tournament-group-toggle::after {
   transform: translateY(2px) rotate(-135deg);
 }
 
-.tournament.contenders .tournament-group-toggle:hover {
+.tournament-contenders .tournament-group-toggle:hover {
   background: var(--brand-accent-strong);
 }
 
-.tournament.contenders .tournament-group-toggle:focus-visible {
+.tournament-contenders .tournament-group-toggle:focus-visible {
   outline: 2px solid var(--brand-accent);
   outline-offset: 3px;
 }
 
-.tournament.contenders .tournament-group-title {
+.tournament-contenders .tournament-group-title {
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: inherit;
@@ -55,20 +56,20 @@
   letter-spacing: 0.18em;
 }
 
-.tournament.contenders .tournament-group-count {
+.tournament-contenders .tournament-group-count {
   margin-left: auto;
   font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.14em;
 }
 
-.tournament.contenders .tournament-group[open] > .player-roster {
+.tournament-contenders .tournament-group[open] > .player-roster {
   margin-top: 24px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tournament.contenders .tournament-group-toggle,
-  .tournament.contenders .tournament-group-toggle::after {
+  .tournament-contenders .tournament-group-toggle,
+  .tournament-contenders .tournament-group-toggle::after {
     transition: none;
   }
 }

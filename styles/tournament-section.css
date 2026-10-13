@@ -1,12 +1,12 @@
-@import url('../../styles/components.css');
+@import url('./components.css');
 
 /*
- * Layout shared by the section variants of the tournament block. Each variant
- * adds its own stylesheet. Section tones, such as `dark` and `muted`, are
- * Section Metadata styles defined in /styles/styles.css.
+ * Layout shared by the tournament blocks that render a page section, which
+ * import it from their own stylesheet. Section tones, such as `dark` and
+ * `muted`, are Section Metadata styles defined in /styles/styles.css.
  */
 .tournament-section {
-  padding: clamp(78px, 8vw, 110px) var(--section-inline-padding) clamp(88px, 9vw, 120px);
+  padding-block: clamp(78px, 8vw, 110px) clamp(88px, 9vw, 120px);
 }
 
 .tournament-section:empty {
@@ -43,7 +43,7 @@
 
 .tournament-section .tournament-section-title {
   max-width: 14ch;
-  font-family: var(--font-heading);
+  font-family: var(--heading-font-family);
   font-size: clamp(2.8rem, 4.5vw, 5.4rem);
   font-weight: 400;
   letter-spacing: -0.045em;

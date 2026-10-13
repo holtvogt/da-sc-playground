@@ -1,7 +1,7 @@
 import { createEyebrow, createPhoto } from '../../scripts/ui/components.js';
 import { formatDateRange, joinParts } from '../../scripts/ui/format.js';
-import { decorateEyebrows, partitionAuthored, renderTournamentBlock } from './block.js';
-import LABELS from './labels.js';
+import { decorateEyebrows, partitionAuthored, renderTournamentBlock } from '../../scripts/ui/tournament-block.js';
+import LABELS from '../../scripts/ui/tournament-labels.js';
 import { createElement } from '../../scripts/utils/dom.js';
 
 function createEyebrowLine({ schedule, venue }) {
@@ -73,8 +73,8 @@ function createMedia({ heroImage, year, status }) {
 
 /**
  * Renders the hero of a tournament. Authors write the headline, lead, and
- * calls to action above the block. The dates, place, and photo come from the record.
- * @param {Element} block The tournament block, hero variant
+ * calls to action in the block. The dates, place, and photo come from the record.
+ * @param {Element} block The tournament hero block
  */
 export default function decorate(block) {
   return renderTournamentBlock(block, ({ tournament }, authored) => [

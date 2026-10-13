@@ -1,4 +1,4 @@
-import { getMetadata } from '../aem.js';
+import { getMetadata } from './aem.js';
 
 /** Pages share the nav and footer fragments unless their metadata names others. */
 const CHROME_FRAGMENTS = Object.freeze({

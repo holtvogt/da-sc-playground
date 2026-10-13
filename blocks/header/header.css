@@ -4,6 +4,7 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
+  border-bottom: 1px solid var(--brand-line-soft);
 }
 
 header nav {
@@ -15,9 +16,10 @@ header nav {
   align-items: center;
   gap: 0 24px;
   margin: auto;
-  max-width: 1248px;
+  max-width: var(--page-max-width);
   height: var(--nav-height);
-  padding: 0 24px;
+  padding: 0 var(--page-gutter);
+  color: var(--text-color);
   font-family: var(--body-font-family);
 }
 
@@ -39,13 +41,6 @@ header nav[aria-expanded='true'] {
     display: flex;
     justify-content: space-between;
     gap: 0 32px;
-    max-width: 1264px;
-    padding: 0 32px;
-  }
-
-  header nav[aria-expanded='true'] {
-    min-height: 0;
-    overflow: visible;
   }
 }
 
@@ -72,7 +67,7 @@ header nav .nav-hamburger button {
   border: 0;
   border-radius: 0;
   padding: 0;
-  background-color: var(--background-color);
+  background-color: transparent;
   color: inherit;
   overflow: initial;
   text-overflow: initial;
@@ -143,9 +138,12 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
+  font-size: 0.91rem;
   font-weight: 700;
+  letter-spacing: 0.15em;
   line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 header nav .nav-brand img {
@@ -170,11 +168,45 @@ header nav[aria-expanded='true'] .nav-sections {
 header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
-  font-size: var(--body-font-size-s);
+  font-size: 0.79rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 header nav .nav-sections ul > li {
   font-weight: 500;
+}
+
+header nav .nav-sections .nav-drop > button {
+  all: unset;
+  display: inline-block;
+  position: relative;
+  padding-right: 16px;
+  cursor: pointer;
+}
+
+header nav .nav-sections .nav-drop > button::after {
+  content: '';
+  position: absolute;
+  top: 0.5em;
+  right: 2px;
+  transform: rotate(135deg);
+  width: 6px;
+  height: 6px;
+  border: 2px solid currentcolor;
+  border-radius: 0 1px 0 0;
+  border-width: 2px 2px 0 0;
+}
+
+header nav .nav-sections .nav-drop > button[aria-expanded='true']::after {
+  top: unset;
+  bottom: 0.5em;
+  transform: rotate(315deg);
+}
+
+header nav .nav-sections .nav-drop > button:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
 }
 
 header nav .nav-sections ul > li > ul {
@@ -185,41 +217,15 @@ header nav .nav-sections ul > li > ul > li {
   font-weight: 400;
 }
 
+header nav .nav-sections .nav-drop > button[aria-expanded='false'] + ul {
+  display: none;
+}
+
 @media (width >= 900px) {
   header nav .nav-sections {
     display: block;
     visibility: visible;
     white-space: nowrap;
-  }
-
-  header nav[aria-expanded='true'] .nav-sections {
-    align-self: unset;
-  }
-
-  header nav .nav-sections .nav-drop {
-    position: relative;
-    padding-right: 16px;
-    cursor: pointer;
-  }
-
-  header nav .nav-sections .nav-drop::after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0.5em;
-    right: 2px;
-    transform: rotate(135deg);
-    width: 6px;
-    height: 6px;
-    border: 2px solid currentcolor;
-    border-radius: 0 1px 0 0;
-    border-width: 2px 2px 0 0;
-  }
-
-  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    top: unset;
-    bottom: 0.5em;
-    transform: rotate(315deg);
   }
 
   header nav .nav-sections ul {
@@ -238,7 +244,7 @@ header nav .nav-sections ul > li > ul > li {
     position: relative;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+  header nav .nav-sections .default-content-wrapper > ul > li > button[aria-expanded='true'] + ul {
     display: block;
     position: absolute;
     left: -24px;
@@ -271,46 +277,13 @@ header nav .nav-tools {
   grid-area: tools;
 }
 
-/* showcase theme */
-.showcase header .nav-wrapper {
-  border-bottom: 1px solid var(--brand-line-soft);
-}
-
-.showcase header nav {
-  max-width: var(--page-max-width);
-  padding-inline: var(--page-gutter);
-  color: var(--brand-ink);
-}
-
-.showcase header .nav-brand {
-  font-size: 0.91rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.showcase header .nav-brand a,
-.showcase header nav .nav-hamburger button {
-  color: var(--brand-ink);
-}
-
-.showcase header nav .nav-hamburger button {
-  background: transparent;
-}
-
-.showcase header .nav-sections ul {
-  font-size: 0.79rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.showcase header .nav-sections a:hover,
-.showcase header .nav-sections a:focus-visible {
+/* section links, the call to action, and the mobile menu */
+header nav .nav-sections a:hover,
+header nav .nav-sections a:focus-visible {
   color: var(--brand-accent);
 }
 
-.showcase header .nav-tools a.button {
+header .nav-tools a.button {
   min-height: 44px;
   padding: 11px 18px;
   gap: 16px;
@@ -318,28 +291,28 @@ header nav .nav-tools {
 }
 
 @media (width < 900px) {
-  .showcase header nav[aria-expanded='false'] .nav-tools {
+  header nav[aria-expanded='false'] .nav-tools {
     display: none;
   }
 
-  .showcase header nav[aria-expanded='true'] .nav-tools {
+  header nav[aria-expanded='true'] .nav-tools {
     align-self: start;
     padding-top: 28px;
-    animation: showcase-menu-in 0.25s ease-out;
+    animation: menu-in 0.25s ease-out;
   }
 
-  .showcase header nav[aria-expanded='true'] .nav-tools a.button {
+  header nav[aria-expanded='true'] .nav-tools a.button {
     display: flex;
     justify-content: space-between;
     min-height: var(--button-large-height);
     padding: var(--button-large-padding);
   }
 
-  .showcase header .nav-brand {
+  header .nav-brand {
     font-size: 0.76rem;
   }
 
-  .showcase header nav[aria-expanded='true'] {
+  header nav[aria-expanded='true'] {
     grid-template:
       'hamburger brand' var(--nav-height)
       'sections sections' auto
@@ -350,7 +323,7 @@ header nav .nav-tools {
   }
 
   /* Dims the page below the open menu. A click on it closes the menu. */
-  .showcase header .nav-wrapper:has(> nav[aria-expanded='true'])::after {
+  header .nav-wrapper:has(> nav[aria-expanded='true'])::after {
     content: '';
     position: absolute;
     top: 100%;
@@ -360,11 +333,11 @@ header nav .nav-tools {
     background: rgb(32 33 31 / 45%);
   }
 
-  .showcase header nav[aria-expanded='true'] .nav-sections {
-    animation: showcase-menu-in 0.25s ease-out;
+  header nav[aria-expanded='true'] .nav-sections {
+    animation: menu-in 0.25s ease-out;
   }
 
-  .showcase header nav .nav-sections ul {
+  header nav .nav-sections ul {
     margin: 0;
     border-top: 2px solid var(--brand-accent);
     counter-reset: nav-section;
@@ -372,48 +345,48 @@ header nav .nav-tools {
     text-transform: none;
   }
 
-  .showcase header nav .nav-sections li {
+  header nav .nav-sections li {
     border-bottom: 1px solid var(--brand-line-soft);
     counter-increment: nav-section;
   }
 
-  .showcase header nav .nav-sections a {
+  header nav .nav-sections a {
     display: grid;
     grid-template-columns: 48px minmax(0, 1fr) auto;
     align-items: baseline;
     padding: 18px 0;
-    font-family: var(--font-heading);
+    font-family: var(--heading-font-family);
     font-size: 1.6rem;
     font-weight: 400;
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
 
-  .showcase header nav .nav-sections a::before {
+  header nav .nav-sections a::before {
     content: counter(nav-section, decimal-leading-zero);
     color: var(--brand-accent);
     font-size: 0.95rem;
     font-style: italic;
   }
 
-  .showcase header nav .nav-sections a::after {
+  header nav .nav-sections a::after {
     content: '→';
     color: var(--brand-accent);
-    font-family: var(--font-body);
+    font-family: var(--body-font-family);
     font-size: 1rem;
     opacity: 0;
     transform: translateX(-8px);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
-  .showcase header nav .nav-sections a:hover::after,
-  .showcase header nav .nav-sections a:focus-visible::after {
+  header nav .nav-sections a:hover::after,
+  header nav .nav-sections a:focus-visible::after {
     opacity: 1;
     transform: none;
   }
 }
 
-@keyframes showcase-menu-in {
+@keyframes menu-in {
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -421,11 +394,11 @@ header nav .nav-tools {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .showcase header nav[aria-expanded='true'] :is(.nav-sections, .nav-tools) {
+  header nav[aria-expanded='true'] :is(.nav-sections, .nav-tools) {
     animation: none;
   }
 
-  .showcase header nav .nav-sections a::after {
+  header nav .nav-sections a::after {
     transition: none;
   }
 }

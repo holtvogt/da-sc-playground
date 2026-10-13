@@ -1,7 +1,7 @@
 @import url('../../styles/player-card.css');
 
 .player {
-  padding: clamp(48px, 6vw, 96px) var(--page-gutter);
+  padding-block: clamp(48px, 6vw, 96px);
 }
 
 /* A single card keeps its natural width instead of stretching across the page. */

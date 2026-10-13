@@ -1,7 +1,7 @@
 import { createEyebrow, createPhoto } from '../../scripts/ui/components.js';
 import { createElement } from '../../scripts/utils/dom.js';
-import { createSectionHeading, renderTournamentSection } from './block.js';
-import LABELS from './labels.js';
+import { createSectionHeading, renderTournamentSection } from '../../scripts/ui/tournament-block.js';
+import LABELS from '../../scripts/ui/tournament-labels.js';
 
 function createHighlight({
   label, title, description, image,
@@ -24,7 +24,7 @@ function createHighlight({
 
 /**
  * Renders the highlights of a tournament as an overview.
- * @param {Element} block The tournament block, highlights variant
+ * @param {Element} block The tournament highlights block
  */
 export default function decorate(block) {
   return renderTournamentSection(block, ({ tournament }, authored) => {

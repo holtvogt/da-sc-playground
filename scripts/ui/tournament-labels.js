@@ -1,6 +1,6 @@
 /*
- * Interface copy for the tournament blocks. Editorial copy, such as section
- * headings and calls to action, is authored on the page. Tournament facts come
+ * Interface copy shared by the tournament blocks. Editorial copy, such as section
+ * headings and calls to action, is authored in the blocks. Tournament facts come
  * from structured content. Only field labels and fallbacks live here.
  */
 const LABELS = Object.freeze({

@@ -1,10 +1,12 @@
-.tournament.highlights .tournament-highlights-list {
+@import url('../../styles/tournament-section.css');
+
+.tournament-highlights .tournament-highlights-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
 }
 
-.tournament.highlights .tournament-highlight {
+.tournament-highlights .tournament-highlight {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -16,29 +18,29 @@
   color: var(--brand-night-ink);
 }
 
-.tournament.highlights .tournament-highlight:last-child:nth-child(odd) {
+.tournament-highlights .tournament-highlight:last-child:nth-child(odd) {
   grid-column: 1 / -1;
 }
 
-.tournament.highlights .tournament-highlight .ui-photo {
+.tournament-highlights .tournament-highlight .ui-photo {
   position: absolute;
   inset: 0;
 }
 
-.tournament.highlights .tournament-highlight .ui-photo::after {
+.tournament-highlights .tournament-highlight .ui-photo::after {
   inset: 0;
   background: linear-gradient(180deg, #101a2459 0%, #101a2480 35%, #08131de8 84%);
 }
 
-.tournament.highlights .tournament-highlight .ui-photo img {
+.tournament-highlights .tournament-highlight .ui-photo img {
   opacity: 0.84;
 }
 
-.tournament.highlights .tournament-highlight:hover .ui-photo img {
+.tournament-highlights .tournament-highlight:hover .ui-photo img {
   transform: scale(1.035);
 }
 
-.tournament.highlights .tournament-highlight-body {
+.tournament-highlights .tournament-highlight-body {
   display: grid;
   position: relative;
   justify-items: start;
@@ -46,24 +48,24 @@
   padding: 45px clamp(26px, 3vw, 46px);
 }
 
-.tournament.highlights .tournament-highlight-with-image .tournament-highlight-body {
+.tournament-highlights .tournament-highlight-with-image .tournament-highlight-body {
   padding-bottom: 70px;
 }
 
-.tournament.highlights .tournament-highlight-body .ui-eyebrow {
+.tournament-highlights .tournament-highlight-body .ui-eyebrow {
   color: var(--brand-accent-soft);
 }
 
-.tournament.highlights .tournament-highlight h3 {
+.tournament-highlights .tournament-highlight h3 {
   max-width: 13ch;
-  font-family: var(--font-heading);
+  font-family: var(--heading-font-family);
   font-size: clamp(2.25rem, 3vw, 3.3rem);
   font-weight: 400;
   letter-spacing: -0.035em;
   line-height: 1.08;
 }
 
-.tournament.highlights .tournament-highlight-body p:last-child {
+.tournament-highlights .tournament-highlight-body p:last-child {
   max-width: 48ch;
   color: var(--brand-night-muted);
   font-size: 0.9rem;
@@ -71,21 +73,21 @@
 }
 
 @media (width <= 850px) {
-  .tournament.highlights .tournament-highlight {
+  .tournament-highlights .tournament-highlight {
     min-height: 400px;
   }
 }
 
 @media (width <= 680px) {
-  .tournament.highlights .tournament-highlights-list {
+  .tournament-highlights .tournament-highlights-list {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .tournament.highlights .tournament-highlight {
+  .tournament-highlights .tournament-highlight {
     min-height: 365px;
   }
 
-  .tournament.highlights .tournament-highlight-body {
+  .tournament-highlights .tournament-highlight-body {
     padding-inline: 26px;
   }
 }

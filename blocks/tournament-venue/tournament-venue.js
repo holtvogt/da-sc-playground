@@ -1,8 +1,8 @@
+import { findHighlight, HIGHLIGHT_KEYS } from '../../scripts/structured-content/tournament.js';
 import { createFacts, createPhoto } from '../../scripts/ui/components.js';
 import { formatLocation } from '../../scripts/ui/format.js';
-import { createSectionHeading, renderTournamentSection } from './block.js';
-import { HIGHLIGHT_KEYS, highlightImage, highlightLabel } from './highlight-keys.js';
-import LABELS from './labels.js';
+import { createSectionHeading, renderTournamentSection } from '../../scripts/ui/tournament-block.js';
+import LABELS from '../../scripts/ui/tournament-labels.js';
 import { createElement } from '../../scripts/utils/dom.js';
 import renderSeating, { formatSeats } from './seating.js';
 
@@ -30,7 +30,7 @@ function createVenueBody(photo, seating) {
 
 /**
  * Renders the venue of a tournament with its facts, photo, and seating areas.
- * @param {Element} block The tournament block, venue variant
+ * @param {Element} block The tournament venue block
  */
 export default function decorate(block) {
   return renderTournamentSection(block, ({ tournament }, authored) => {
@@ -39,13 +39,14 @@ export default function decorate(block) {
     const seating = renderSeating(experience.seating);
     if (!venue.name && !facts && !seating) return null;
 
+    const highlight = findHighlight(tournament, HIGHLIGHT_KEYS.venue);
     const heading = createSectionHeading(authored, {
-      eyebrow: highlightLabel(tournament, HIGHLIGHT_KEYS.venue) || LABELS.venue,
+      eyebrow: highlight.label || LABELS.venue,
       title: venue.name || LABELS.venue,
       intro: venue.setting,
     });
     if (facts) heading.append(facts);
-    const photo = seating && highlightImage(tournament, HIGHLIGHT_KEYS.venue);
+    const photo = seating && highlight.image;
     return [heading, createVenueBody(photo, seating)].filter(Boolean);
   });
 }

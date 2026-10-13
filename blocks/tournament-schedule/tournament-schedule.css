@@ -1,10 +1,12 @@
-.tournament.schedule .tournament-sessions {
+@import url('../../styles/tournament-section.css');
+
+.tournament-schedule .tournament-sessions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 40px 32px;
 }
 
-.tournament.schedule .tournament-session {
+.tournament-schedule .tournament-session {
   display: grid;
   align-content: start;
   gap: 14px;
@@ -12,26 +14,26 @@
   border-top: 2px solid var(--brand-accent);
 }
 
-.tournament.schedule .tournament-session-day {
+.tournament-schedule .tournament-session-day {
   display: grid;
   gap: 4px;
 }
 
-.tournament.schedule .tournament-session-day time {
-  font-family: var(--font-heading);
+.tournament-schedule .tournament-session-day time {
+  font-family: var(--heading-font-family);
   font-size: clamp(1.8rem, 2.4vw, 2.4rem);
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
 
-.tournament.schedule .tournament-session-round {
-  font-family: var(--font-body);
+.tournament-schedule .tournament-session-round {
+  font-family: var(--body-font-family);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.5;
 }
 
-.tournament.schedule .tournament-session-time {
+.tournament-schedule .tournament-session-time {
   color: var(--brand-ink-muted);
   font-size: 0.9rem;
   font-variant-numeric: tabular-nums;

@@ -14,7 +14,7 @@
 .player-card {
   display: grid;
   color: var(--brand-ink);
-  font-family: var(--font-body);
+  font-family: var(--body-font-family);
   grid-row: span 4;
   grid-template-rows: subgrid;
   gap: 0;
@@ -74,7 +74,7 @@
 
 .player-card-name {
   margin-bottom: 6px;
-  font-family: var(--font-heading);
+  font-family: var(--heading-font-family);
   font-size: clamp(1.7rem, 2.2vw, 2.25rem);
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -84,7 +84,7 @@
 .player-card-style {
   margin-bottom: 18px;
   color: var(--brand-ink-muted);
-  font-family: var(--font-heading);
+  font-family: var(--heading-font-family);
   font-style: italic;
 }
 
@@ -134,7 +134,7 @@
   border-bottom: 1px solid var(--brand-accent);
   background: transparent;
   color: var(--brand-ink);
-  font-family: var(--font-body);
+  font-family: var(--body-font-family);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -170,6 +170,6 @@
 
 .player-card-equipment dd {
   margin-top: 4px;
-  font-family: var(--font-body);
+  font-family: var(--body-font-family);
   font-size: 0.85rem;
 }

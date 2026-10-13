@@ -1,70 +1,47 @@
 footer {
-  background-color: var(--light-color);
+  background-color: var(--brand-night-deep);
+  color: var(--brand-night-muted);
   font-size: var(--body-font-size-xs);
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  max-width: var(--page-max-width);
+  padding: 0 var(--page-gutter);
 }
 
 footer .footer p {
   margin: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
-  }
-}
-
-/* showcase theme */
-.showcase footer {
-  margin: 0;
-  padding: 0;
-  background: var(--brand-night-deep);
+/* brand */
+footer a:any-link {
   color: var(--brand-night-muted);
 }
 
-.showcase footer .footer > div {
-  max-width: var(--page-max-width);
-  padding: 0 var(--page-gutter);
-}
-
-.showcase footer a {
-  color: var(--brand-night-muted);
-}
-
-.showcase footer a:hover {
+footer a:hover {
   color: var(--brand-accent-soft);
 }
 
-.showcase footer a:focus-visible {
+footer a:focus-visible {
   outline: 2px solid var(--brand-accent-soft);
   outline-offset: 4px;
-}
-
-.showcase footer .footer p {
-  margin: 0;
-  color: inherit;
-  font-size: inherit;
 }
 
 /*
  * Authors may place the columns, the tournament facts, and the legal line in
  * one section, so each part spaces itself through its wrapper.
  */
-.showcase footer .section:first-child {
+footer .section:first-child {
   border-top: 2px solid var(--brand-accent);
 }
 
 /* Authored columns: the brand with its description, then link lists */
-.showcase footer .columns-wrapper {
+footer .columns-wrapper {
   padding: 72px 0 56px;
 }
 
-.showcase footer .columns > div {
+footer .columns > div {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
@@ -72,11 +49,11 @@ footer .footer p {
   padding: 0;
 }
 
-.showcase footer .columns > div > div {
+footer .columns > div > div {
   flex: 0 1 auto;
 }
 
-.showcase footer .columns h3 {
+footer .columns h3 {
   margin: 0 0 17px;
   color: var(--brand-night-ink);
   font-family: var(--body-font-family);
@@ -86,22 +63,22 @@ footer .footer p {
   text-transform: uppercase;
 }
 
-.showcase footer .columns > div > div:first-child h3 {
+footer .columns > div > div:first-child h3 {
   margin-bottom: 14px;
-  font-family: var(--font-heading);
+  font-family: var(--heading-font-family);
   font-size: clamp(1.8rem, 2.5vw, 2.8rem);
   font-weight: 400;
   letter-spacing: -0.03em;
   text-transform: none;
 }
 
-.showcase footer .columns p {
+footer .columns p {
   max-width: 44ch;
   font-size: 0.87rem;
   line-height: 1.7;
 }
 
-.showcase footer .columns ul {
+footer .columns ul {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -110,28 +87,28 @@ footer .footer p {
   list-style: none;
 }
 
-.showcase footer .columns li {
+footer .columns li {
   margin: 0;
   font-size: 0.82rem;
 }
 
 /* Tournament facts from structured content */
-.showcase footer .tournament-wrapper {
+footer .tournament-facts-wrapper {
   padding: 32px 0 40px;
   border-top: 1px solid color-mix(in srgb, var(--brand-night-ink) 16%, transparent);
 }
 
-.showcase footer .tournament.facts {
+footer .tournament-facts {
   --tournament-facts-label-color: var(--brand-accent-soft);
   --tournament-facts-value-color: var(--brand-night-ink);
 }
 
-.showcase footer .footer .default-content-wrapper {
+footer .footer .default-content-wrapper {
   padding: 24px 0 36px;
   border-top: 1px solid color-mix(in srgb, var(--brand-night-ink) 16%, transparent);
   font-size: 0.75rem;
 }
 
-.showcase footer .footer .default-content-wrapper a {
+footer .footer .default-content-wrapper a {
   white-space: nowrap;
 }

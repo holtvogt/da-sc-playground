@@ -1,12 +1,12 @@
 import { createFacts } from '../../scripts/ui/components.js';
 import { formatDateRange, formatLocation } from '../../scripts/ui/format.js';
-import { renderTournamentBlock } from './block.js';
-import LABELS from './labels.js';
+import { renderTournamentBlock } from '../../scripts/ui/tournament-block.js';
+import LABELS from '../../scripts/ui/tournament-labels.js';
 
 /**
  * Renders the key facts of a tournament as a compact strip, such as in the footer.
- * Content authored above the block stays in front of the facts.
- * @param {Element} block The tournament block, facts variant
+ * Copy authored in the block stays in front of the facts.
+ * @param {Element} block The tournament facts block
  */
 export default function decorate(block) {
   return renderTournamentBlock(block, ({ tournament }, authored) => {

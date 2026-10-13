@@ -1,10 +1,10 @@
+import { findHighlight, HIGHLIGHT_KEYS } from '../../scripts/structured-content/tournament.js';
 import { createEyebrow } from '../../scripts/ui/components.js';
 import {
   formatDateRange, formatDayMonth, formatTimeZoneName, formatWeekday, joinParts,
 } from '../../scripts/ui/format.js';
-import { createSectionHeading, renderTournamentSection } from './block.js';
-import { HIGHLIGHT_KEYS, highlightLabel } from './highlight-keys.js';
-import LABELS from './labels.js';
+import { createSectionHeading, renderTournamentSection } from '../../scripts/ui/tournament-block.js';
+import LABELS from '../../scripts/ui/tournament-labels.js';
 import { createElement } from '../../scripts/utils/dom.js';
 
 function createSession({ date, round, startTime }, timeZone) {
@@ -27,7 +27,7 @@ function createSession({ date, round, startTime }, timeZone) {
 
 /**
  * Renders the day-by-day schedule of a tournament.
- * @param {Element} block The tournament block, schedule variant
+ * @param {Element} block The tournament schedule block
  */
 export default function decorate(block) {
   return renderTournamentSection(block, ({ tournament }, authored) => {
@@ -35,7 +35,7 @@ export default function decorate(block) {
     if (!schedule.sessions.length) return null;
     return [
       createSectionHeading(authored, {
-        eyebrow: highlightLabel(tournament, HIGHLIGHT_KEYS.schedule) || LABELS.schedule,
+        eyebrow: findHighlight(tournament, HIGHLIGHT_KEYS.schedule).label || LABELS.schedule,
         title: formatDateRange(schedule.startDate, schedule.endDate) || LABELS.schedule,
       }),
       createElement('ol', {

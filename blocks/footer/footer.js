@@ -1,5 +1,5 @@
+import { resolveChromePath } from '../../scripts/chrome.js';
 import { loadChromeFragment } from '../fragment/fragment.js';
-import { resolveChromePath } from '../../scripts/page/chrome.js';
 
 /**
  * loads and decorates the footer
@@ -7,13 +7,12 @@ import { resolveChromePath } from '../../scripts/page/chrome.js';
  */
 export default async function decorate(block) {
   // load footer as fragment
-  const footerPath = resolveChromePath('footer');
-  const fragment = await loadChromeFragment(footerPath);
+  const fragment = await loadChromeFragment(resolveChromePath('footer'));
 
   // decorate footer DOM
   block.textContent = '';
   const footer = document.createElement('div');
-  while (fragment?.firstElementChild) footer.append(fragment.firstElementChild);
+  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
   block.append(footer);
 }

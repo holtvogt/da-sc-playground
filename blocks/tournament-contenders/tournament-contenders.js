@@ -1,8 +1,8 @@
+import { findHighlight, HIGHLIGHT_KEYS } from '../../scripts/structured-content/tournament.js';
 import { createFacts } from '../../scripts/ui/components.js';
 import renderPlayerRoster from '../../scripts/ui/player-card.js';
-import { createSectionHeading, renderTournamentSection } from './block.js';
-import { HIGHLIGHT_KEYS, highlightLabel } from './highlight-keys.js';
-import LABELS from './labels.js';
+import { createSectionHeading, renderTournamentSection } from '../../scripts/ui/tournament-block.js';
+import LABELS from '../../scripts/ui/tournament-labels.js';
 import { createElement } from '../../scripts/utils/dom.js';
 
 function bySeedThenName(first, second) {
@@ -71,14 +71,14 @@ function createGroup({ name, players }, index) {
 
 /**
  * Renders every entrant of a tournament, grouped and ordered by seed.
- * @param {Element} block The tournament block, contenders variant
+ * @param {Element} block The tournament contenders block
  */
 export default function decorate(block) {
   return renderTournamentSection(block, ({ tournament, players }, authored) => {
     if (!players.length) return null;
     const groups = groupPlayers(players);
     const heading = createSectionHeading(authored, {
-      eyebrow: highlightLabel(tournament, HIGHLIGHT_KEYS.players) || LABELS.contenders,
+      eyebrow: findHighlight(tournament, HIGHLIGHT_KEYS.players).label || LABELS.contenders,
       title: LABELS.contendersTitle,
     });
     const facts = createCompetitionFacts(tournament, groups);

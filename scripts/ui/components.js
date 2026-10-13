@@ -61,7 +61,11 @@ export function createPhoto(image, { eager = false, placeholder = '' } = {}) {
   if (!image) {
     return createElement('figure', {
       className: 'ui-photo ui-photo-empty',
-      children: [createElement('span', { text: placeholder, attributes: { 'aria-hidden': 'true' } })],
+      children: [createElement('span', {
+        className: 'ui-photo-placeholder',
+        text: placeholder,
+        attributes: { 'aria-hidden': 'true' },
+      })],
     });
   }
   const media = createImage(image, eager);

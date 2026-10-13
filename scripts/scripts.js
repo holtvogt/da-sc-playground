@@ -11,30 +11,8 @@ import {
   loadCSS,
   buildBlock,
 } from './aem.js';
-import { removeUneditedChrome } from './page/chrome.js';
-import buildRecordBlock from './page/record-block.js';
-import applyShowcaseTheme from './page/theme.js';
-import buildTournamentRecordPage from './page/tournament-record-page.js';
-import { readFormField, readSchemaName } from './structured-content/form.js';
-import SCHEMAS from './structured-content/schemas.js';
-import { createElement } from './utils/dom.js';
-
-/**
- * Renders a player record on its own page as a single player card.
- * @param {Element} main The main element
- * @param {string} recordPath Site-relative path of the player record
- */
-function buildPlayerRecordPage(main, recordPath) {
-  const block = buildRecordBlock('player', recordPath);
-  block.classList.add('record');
-  main.replaceChildren(createElement('div', { children: [block] }));
-}
-
-/** Builders that render a structured content record when its own page is opened. */
-const RECORD_PAGE_BUILDERS = Object.freeze({
-  [SCHEMAS.tournament]: buildTournamentRecordPage,
-  [SCHEMAS.player]: buildPlayerRecordPage,
-});
+import { removeUneditedChrome } from './chrome.js';
+import buildRecordPage from './structured-content/record-page.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -95,22 +73,6 @@ function buildWidgetAutoBlocks(main) {
       link.replaceWith(widgetBlock);
     }
   });
-}
-
-/**
- * Renders a structured content record on its own page, which is also what the
- * da.live canvas previews for the record. Fragments such as the nav and footer
- * share the page URL, so they are left untouched.
- * @param {Element} main The container element
- */
-function buildRecordPage(main) {
-  if (main !== document.querySelector('main')) return;
-  const buildPage = RECORD_PAGE_BUILDERS[readSchemaName(main)];
-  if (!buildPage) return;
-  applyShowcaseTheme();
-  // EDS titles a record page after its first heading, which is a field name.
-  document.title = readFormField(main, 'title') || document.title;
-  buildPage(main, window.location.pathname);
 }
 
 /**

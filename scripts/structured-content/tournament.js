@@ -171,3 +171,21 @@ export function loadTournament(path) {
 export function loadEntrants(tournament) {
   return loadOnce(loadedEntrants, tournament.path, () => loadPlayers(tournament.entrants));
 }
+
+/** Highlight keys of a tournament record that introduce a page section. */
+export const HIGHLIGHT_KEYS = Object.freeze({
+  schedule: 'schedule',
+  venue: 'venue',
+  players: 'players',
+});
+
+/**
+ * Finds the highlight that introduces a page section.
+ * @param {object} tournament A tournament from {@link loadTournament}
+ * @param {string} key One of {@link HIGHLIGHT_KEYS}
+ * @returns {{label: string, image: ?object}} Empty values when none is authored
+ */
+export function findHighlight(tournament, key) {
+  const highlight = tournament.highlights.find((candidate) => candidate.key === key);
+  return { label: highlight?.label ?? '', image: highlight?.image ?? null };
+}
