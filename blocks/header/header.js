@@ -1,4 +1,4 @@
-import { resolveChromePath } from '../../scripts/chrome.js';
+import { isPageChrome, resolveChromePath } from '../../scripts/chrome.js';
 import { loadChromeFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -109,6 +109,8 @@ function closeMenuOnPageInteraction(nav, navSections) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  if (!isPageChrome(block, 'nav')) return;
+
   // load nav as fragment
   const fragment = await loadChromeFragment(resolveChromePath('nav'));
 

@@ -1,4 +1,4 @@
-import { resolveChromePath } from '../../scripts/chrome.js';
+import { isPageChrome, resolveChromePath } from '../../scripts/chrome.js';
 import { loadChromeFragment } from '../fragment/fragment.js';
 
 /**
@@ -6,6 +6,8 @@ import { loadChromeFragment } from '../fragment/fragment.js';
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
+  if (!isPageChrome(block, 'footer')) return;
+
   // load footer as fragment
   const fragment = await loadChromeFragment(resolveChromePath('footer'));
 

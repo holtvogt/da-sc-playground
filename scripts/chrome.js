@@ -17,6 +17,18 @@ export function resolveChromePath(name) {
 }
 
 /**
+ * Tells whether a block is the page's own header or footer block. A block with
+ * the same name authored inside a fragment would load that fragment again, and
+ * again, without end.
+ * @param {Element} block The header or footer block
+ * @param {'nav'|'footer'} name The chrome fragment the block loads
+ * @returns {boolean} True when the block sits directly in the page chrome
+ */
+export function isPageChrome(block, name) {
+  return block.parentElement === document.querySelector(CHROME_FRAGMENTS[name]);
+}
+
+/**
  * Removes the chrome that a nav or footer page does not author, so the
  * da.live canvas previews only the fragment being edited.
  * @param {Document} doc The page document
