@@ -81,7 +81,7 @@ export function createPhoto(image, { eager = false, placeholder = '' } = {}) {
 /**
  * Creates a definition list from `[label, value]` pairs, skipping empty values.
  * @param {string} className Additional class names
- * @param {Array<[string, *]>} entries
+ * @param {Array<[Node|string, *]>} entries Labels are text, or authored nodes to move
  * @returns {?HTMLDListElement} null when nothing is left to show
  */
 export function createFacts(className, entries) {
@@ -89,7 +89,7 @@ export function createFacts(className, entries) {
     .filter(([, value]) => value || value === 0)
     .map(([label, value]) => createElement('div', {
       children: [
-        createElement('dt', { text: label }),
+        createElement('dt', { children: [label] }),
         createElement('dd', { text: value }),
       ],
     }));

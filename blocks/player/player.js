@@ -28,7 +28,7 @@ export default async function decorate(block) {
     return;
   }
 
-  const players = await loadPlayers(paths.map((path) => ({ path })));
+  const players = await loadPlayers(paths);
   const headingLevel = block.classList.contains(RECORD_VARIANT) ? 1 : 3;
   const content = players.length
     ? renderPlayerRoster(players, { headingLevel })

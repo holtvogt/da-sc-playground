@@ -44,7 +44,6 @@ function normalizeCompetition(value) {
   return {
     discipline: toText(competition.discipline),
     format: toText(competition.format),
-    groupCount: toNumber(competition.groupCount),
     bestOfGames: toNumber(rules.bestOfGames),
     pointsPerGame: toNumber(rules.pointsPerGame),
   };
@@ -95,7 +94,10 @@ function normalizeHighlights(value, media) {
     .filter(({ title }) => title);
 }
 
-/** @returns {import('./player.js').PlayerEntry[]} Unique, valid entrants */
+/**
+ * Players enter by reference only. Their seed and group live in the player record.
+ * @returns {string[]} Unique, valid player record paths
+ */
 function normalizeEntrants(value) {
   const paths = new Set();
   return toRecords(value).reduce((entrants, entrant) => {
@@ -106,7 +108,7 @@ function normalizeEntrants(value) {
       return entrants;
     }
     paths.add(path);
-    entrants.push({ path, seed: toNumber(entrant.seed), group: toText(entrant.group) });
+    entrants.push(path);
     return entrants;
   }, []);
 }

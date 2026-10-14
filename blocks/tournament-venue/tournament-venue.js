@@ -1,20 +1,30 @@
 import { findHighlight, HIGHLIGHT_KEYS } from '../../scripts/structured-content/tournament.js';
 import { createFacts, createPhoto } from '../../scripts/ui/components.js';
 import { formatLocation } from '../../scripts/ui/format.js';
-import { createSectionHeading, renderTournamentSection } from '../../scripts/ui/tournament-block.js';
+import {
+  createSectionHeading, hasAuthoredHeading, renderTournamentSection,
+} from '../../scripts/ui/tournament-block.js';
 import LABELS from '../../scripts/ui/tournament-labels.js';
 import { createElement } from '../../scripts/utils/dom.js';
 import renderSeating, { formatSeats } from './seating.js';
 
+/** Labels authors may override. */
+const VENUE_LABELS = Object.freeze({
+  venue: LABELS.venue,
+  location: LABELS.location,
+  capacity: LABELS.capacity,
+  seating: LABELS.seating,
+});
+
 /**
- * Lists the venue facts. Authored content replaces the venue name as title,
+ * Lists the venue facts. An authored heading replaces the venue name as title,
  * so the name moves into the facts.
  */
-function createVenueFacts(venue, hasAuthoredContent) {
+function createVenueFacts(venue, hasAuthoredTitle, labels) {
   return createFacts('tournament-venue-facts', [
-    [LABELS.venue, hasAuthoredContent ? venue.name : ''],
-    [LABELS.location, formatLocation(venue)],
-    [LABELS.capacity, formatSeats(venue.capacity)],
+    [labels.place('venue'), hasAuthoredTitle ? venue.name : ''],
+    [labels.place('location'), formatLocation(venue)],
+    [labels.place('capacity'), formatSeats(venue.capacity)],
   ]);
 }
 
@@ -33,10 +43,10 @@ function createVenueBody(photo, seating) {
  * @param {Element} block The tournament venue block
  */
 export default function decorate(block) {
-  return renderTournamentSection(block, ({ tournament }, authored) => {
+  return renderTournamentSection(block, ({ tournament }, authored, labels) => {
     const { venue, experience } = tournament;
-    const facts = createVenueFacts(venue, authored.length > 0);
-    const seating = renderSeating(experience.seating);
+    const facts = createVenueFacts(venue, hasAuthoredHeading(authored), labels);
+    const seating = renderSeating(experience.seating, labels.place('seating'));
     if (!venue.name && !facts && !seating) return null;
 
     const highlight = findHighlight(tournament, HIGHLIGHT_KEYS.venue);
@@ -48,5 +58,5 @@ export default function decorate(block) {
     if (facts) heading.append(facts);
     const photo = seating && highlight.image;
     return [heading, createVenueBody(photo, seating)].filter(Boolean);
-  });
+  }, { labels: VENUE_LABELS });
 }

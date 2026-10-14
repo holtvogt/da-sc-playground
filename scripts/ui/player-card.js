@@ -1,5 +1,6 @@
 import { toClassName } from '../aem.js';
 import { createElement } from '../utils/dom.js';
+import BlockLabels from './block-labels.js';
 import {
   createEyebrow, createFacts, createPhoto, createTags,
 } from './components.js';
@@ -10,18 +11,20 @@ import { joinParts } from './format.js';
  * /styles/player-card.css, which blocks import from their own stylesheet.
  */
 
-const LABELS = Object.freeze({
-  seed: (seed) => `Seed ${seed}`,
+/** Labels of a player card, which blocks may let authors override. */
+export const PLAYER_CARD_LABELS = Object.freeze({
+  seed: 'Seed',
   ranking: 'Ranking',
   age: 'Age',
   hand: 'Hand',
   debut: 'Debut',
-  strengthsOf: (name) => `${name} strengths`,
   equipment: 'Equipment',
   blade: 'Blade',
   forehand: 'Forehand',
   backhand: 'Backhand',
 });
+
+const strengthsOf = (name) => `${name} strengths`;
 
 let renderedPanels = 0;
 
@@ -30,10 +33,11 @@ function initials(name) {
   return letters.slice(0, 2).toUpperCase();
 }
 
-function createPortrait(player) {
+function createPortrait(player, labels) {
   const portrait = createPhoto(player.image, { placeholder: initials(player.name) });
   if (player.seed !== null) {
-    portrait.append(createElement('span', { className: 'player-card-seed', text: LABELS.seed(player.seed) }));
+    const seed = `${labels.text('seed')} ${player.seed}`;
+    portrait.append(createElement('span', { className: 'player-card-seed', text: seed }));
   }
   return portrait;
 }
@@ -55,12 +59,12 @@ function createIntro(player, headingLevel) {
  * A button with a separate panel (instead of `<details>`) lets the roster grid
  * give the panel its own row, so opening it never shifts sibling cards.
  */
-function createEquipmentDisclosure(player) {
+function createEquipmentDisclosure(player, labels) {
   const { blade, forehandRubber, backhandRubber } = player.equipment;
   const panel = createFacts('player-card-equipment', [
-    [LABELS.blade, blade],
-    [LABELS.forehand, forehandRubber],
-    [LABELS.backhand, backhandRubber],
+    [labels.text('blade'), blade],
+    [labels.text('forehand'), forehandRubber],
+    [labels.text('backhand'), backhandRubber],
   ]);
   if (!panel) return {};
 
@@ -69,7 +73,7 @@ function createEquipmentDisclosure(player) {
   panel.hidden = true;
   const toggle = createElement('button', {
     className: 'player-card-toggle',
-    text: LABELS.equipment,
+    text: labels.text('equipment'),
     attributes: { type: 'button', 'aria-expanded': 'false', 'aria-controls': panel.id },
   });
   toggle.addEventListener('click', () => {
@@ -80,17 +84,17 @@ function createEquipmentDisclosure(player) {
   return { toggle, panel };
 }
 
-function createDetails(player, toggle) {
+function createDetails(player, toggle, labels) {
   return createElement('div', {
     className: 'player-card-details',
     children: [
       createFacts('player-card-stats', [
-        [LABELS.ranking, player.ranking],
-        [LABELS.age, player.age],
-        [LABELS.hand, player.handedness],
-        [LABELS.debut, player.debutYear],
+        [labels.text('ranking'), player.ranking],
+        [labels.text('age'), player.age],
+        [labels.text('hand'), player.handedness],
+        [labels.text('debut'), player.debutYear],
       ]),
-      createTags(player.strengths, LABELS.strengthsOf(player.name)),
+      createTags(player.strengths, strengthsOf(player.name)),
       toggle,
     ].filter(Boolean),
   });
@@ -99,14 +103,14 @@ function createDetails(player, toggle) {
 /**
  * Renders one player as a card with four rows: portrait, intro, details, and equipment.
  */
-function renderPlayerCard(player, headingLevel) {
-  const { toggle, panel } = createEquipmentDisclosure(player);
+function renderPlayerCard(player, headingLevel, labels) {
+  const { toggle, panel } = createEquipmentDisclosure(player, labels);
   return createElement('li', {
     className: 'player-card',
     children: [
-      createPortrait(player),
+      createPortrait(player, labels),
       createIntro(player, headingLevel),
-      createDetails(player, toggle),
+      createDetails(player, toggle, labels),
       panel,
     ].filter(Boolean),
   });
@@ -117,11 +121,14 @@ function renderPlayerCard(player, headingLevel) {
  * @param {object[]} players Normalized players
  * @param {object} [options]
  * @param {number} [options.headingLevel] Heading level of player names, 1 to 6
+ * @param {BlockLabels} [options.labels] Card labels, keyed as {@link PLAYER_CARD_LABELS}
  * @returns {HTMLOListElement}
  */
-export default function renderPlayerRoster(players, { headingLevel = 3 } = {}) {
+export default function renderPlayerRoster(players, {
+  headingLevel = 3, labels = new BlockLabels(PLAYER_CARD_LABELS),
+} = {}) {
   return createElement('ol', {
     className: 'player-roster ui-reset',
-    children: players.map((player) => renderPlayerCard(player, headingLevel)),
+    children: players.map((player) => renderPlayerCard(player, headingLevel, labels)),
   });
 }

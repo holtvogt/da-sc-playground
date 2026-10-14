@@ -54,17 +54,32 @@ function createTier(area) {
 }
 
 /**
+ * An authored title is a paragraph, which keeps it editable in the da.live
+ * canvas, so it takes the heading role instead of becoming a heading.
+ */
+function createSeatingTitle(title) {
+  if (typeof title === 'string') {
+    return createElement('h3', { className: 'tournament-seating-title', text: title });
+  }
+  title.classList.add('tournament-seating-title');
+  title.setAttribute('role', 'heading');
+  title.setAttribute('aria-level', '3');
+  return title;
+}
+
+/**
  * Renders the seating areas as numbered tiers. Optional fields such as
  * description, image, capacity, price, and availability show only when authored.
  * @param {object[]} seating Normalized seating areas
+ * @param {Node|string} title Seating title, as text or as an authored paragraph
  * @returns {?HTMLElement}
  */
-export default function renderSeating(seating) {
+export default function renderSeating(seating, title) {
   if (!seating.length) return null;
   return createElement('div', {
     className: 'tournament-seating',
     children: [
-      createElement('h3', { className: 'tournament-seating-title', text: LABELS.seating }),
+      createSeatingTitle(title),
       createElement('ol', { className: 'tournament-seating-tiers', children: seating.map(createTier) }),
     ],
   });

@@ -4,15 +4,8 @@ import {
 import readStructuredContent from './delivery.js';
 import SCHEMAS from './schemas.js';
 
-/**
- * @typedef {object} PlayerEntry
- * @property {string} path Site-relative player record path
- * @property {?number} [seed] Overrides the seed of the player record
- * @property {string} [group] Overrides the group of the player record
- */
-
-/** Only a name is required. A tournament entry wins over the record's seed and group. */
-function normalizePlayer(record, { path, seed = null, group = '' }) {
+/** Only a name is required. Every other field normalizes to an empty default. */
+function normalizePlayer(record, path) {
   const name = toText(record.name);
   if (!name) throw new Error(`Player ${path} has no name`);
   const playingStyle = toRecord(record.playingStyle);
@@ -29,8 +22,8 @@ function normalizePlayer(record, { path, seed = null, group = '' }) {
     archetype: toText(playingStyle.styleType),
     grip: toText(playingStyle.grip),
     strengths: toTextList(playingStyle.strengths),
-    seed: seed ?? toNumber(competition.seed),
-    group: group || toText(competition.group),
+    seed: toNumber(competition.seed),
+    group: toText(competition.group),
     debutYear: toNumber(competition.debutYear),
     equipment: {
       blade: toText(equipment.blade),
@@ -43,21 +36,21 @@ function normalizePlayer(record, { path, seed = null, group = '' }) {
 
 /**
  * Loads and normalizes one player record.
- * @param {PlayerEntry} entry
+ * @param {string} path Site-relative player record path
  */
-async function loadPlayer(entry) {
-  if (!isSitePath(entry.path)) throw new Error(`Invalid player path "${entry.path}"`);
-  const record = await readStructuredContent(entry.path, SCHEMAS.player);
-  return normalizePlayer(record, entry);
+async function loadPlayer(path) {
+  if (!isSitePath(path)) throw new Error(`Invalid player path "${path}"`);
+  const record = await readStructuredContent(path, SCHEMAS.player);
+  return normalizePlayer(record, path);
 }
 
 /**
  * Loads player records in order. A player that fails to load is left out.
- * @param {PlayerEntry[]} entries
+ * @param {string[]} paths Site-relative player record paths
  * @returns {Promise<object[]>} Normalized players
  */
-export default async function loadPlayers(entries) {
-  const results = await Promise.allSettled(entries.map(loadPlayer));
+export default async function loadPlayers(paths) {
+  const results = await Promise.allSettled(paths.map(loadPlayer));
   return results.flatMap((result) => {
     if (result.status === 'fulfilled') return [result.value];
     // eslint-disable-next-line no-console
