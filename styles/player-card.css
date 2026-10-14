@@ -11,7 +11,7 @@
 }
 
 /* Each card spans four roster rows (portrait, intro, details, equipment) so rows align across cards. */
-.player-card {
+.player-roster > .player-card {
   display: grid;
   color: var(--brand-ink);
   font-family: var(--body-font-family);
@@ -24,6 +24,10 @@
 /* Parts carry the card frame, so an open equipment row extends only its own card. */
 .player-card > * {
   border-inline: 1px solid var(--brand-line);
+}
+
+/* The portrait keeps the dark photo backdrop behind a missing image. */
+.player-card > :not(.ui-photo) {
   background: var(--brand-surface);
 }
 
@@ -31,7 +35,7 @@
   border-top: 1px solid var(--brand-line);
 }
 
-.player-card-details,
+.player-card > .player-card-details,
 .player-card > .player-card-equipment {
   border-bottom: 1px solid var(--brand-line);
 }
@@ -48,7 +52,7 @@
   transform: scale(1.035);
 }
 
-.player-card-seed {
+.player-card .player-card-seed {
   position: absolute;
   z-index: 1;
   top: 16px;
@@ -62,17 +66,17 @@
   text-transform: uppercase;
 }
 
-.player-card-intro {
+.player-card .player-card-intro {
   display: grid;
   align-content: start;
   padding: 28px clamp(22px, 2vw, 32px) 24px;
 }
 
-.player-card-intro .ui-eyebrow {
+.player-card .player-card-intro .ui-eyebrow {
   margin-bottom: 10px;
 }
 
-.player-card-name {
+.player-card .player-card-name {
   margin-bottom: 6px;
   font-family: var(--heading-font-family);
   font-size: clamp(1.7rem, 2.2vw, 2.25rem);
@@ -81,20 +85,20 @@
   line-height: 1.1;
 }
 
-.player-card-style {
+.player-card .player-card-style {
   margin-bottom: 18px;
   color: var(--brand-ink-muted);
   font-family: var(--heading-font-family);
   font-style: italic;
 }
 
-.player-card-bio {
+.player-card .player-card-bio {
   color: var(--brand-ink-muted);
   font-size: 0.88rem;
   line-height: 1.7;
 }
 
-.player-card-details {
+.player-card .player-card-details {
   container-type: inline-size;
   display: grid;
   align-content: start;
@@ -103,7 +107,7 @@
   padding: 0 clamp(22px, 2vw, 32px) 30px;
 }
 
-.player-card-stats {
+.player-card .player-card-stats {
   display: grid;
   grid-auto-columns: minmax(0, 1fr);
   grid-auto-flow: column;
@@ -113,19 +117,19 @@
   border-block: 1px solid var(--brand-line-soft);
 }
 
-.player-card-stats dd {
+.player-card .player-card-stats dd {
   font-size: 1.3rem;
   line-height: 1.2;
 }
 
 @container (width < 320px) {
-  .player-card-stats {
+  .player-card .player-card-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-flow: row;
   }
 }
 
-.player-card-toggle {
+.player-card .player-card-toggle {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -142,21 +146,21 @@
   cursor: pointer;
 }
 
-.player-card-toggle::before {
+.player-card .player-card-toggle::before {
   content: '▸' / '';
   font-size: 0.8rem;
   line-height: 1;
 }
 
-.player-card-toggle[aria-expanded='true']::before {
+.player-card .player-card-toggle[aria-expanded='true']::before {
   content: '▾' / '';
 }
 
-.player-card-toggle:hover {
+.player-card .player-card-toggle:hover {
   color: var(--brand-accent);
 }
 
-.player-card-equipment {
+.player-card .player-card-equipment {
   display: grid;
   align-self: start;
   gap: 12px;
@@ -164,11 +168,11 @@
 }
 
 /* An author `display` overrides the UA rule for [hidden]. */
-.player-card-equipment[hidden] {
+.player-card .player-card-equipment[hidden] {
   display: none;
 }
 
-.player-card-equipment dd {
+.player-card .player-card-equipment dd {
   margin-top: 4px;
   font-family: var(--body-font-family);
   font-size: 0.85rem;

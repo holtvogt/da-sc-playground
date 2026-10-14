@@ -1,7 +1,9 @@
 /*
  * Shared presentational components rendered by /scripts/ui/components.js.
  * Containers add `ui-reset` so global element styles do not leak in.
- * Rules here use one class, so block styles override them without extra weight.
+ * Rules here use one class. Every stylesheet that imports this file adds another
+ * copy later in the cascade, so overrides must outweigh one class. Scope them
+ * with the block or component root, as in `.player-card .player-card-name`.
  */
 
 /* ── Reset ── */
